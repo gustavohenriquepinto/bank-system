@@ -45,3 +45,7 @@
 ## Requisitos de Negócio
 - Conformidade Regulamentar: O sistema deve seguir as normas bancárias locais e internacionais de segurança e privacidade de dados.
 - Escalabilidade e Custo de Operação: O sistema deve ser projetado para ser economicamente viável e capaz de escalar à medida que o número de clientes aumenta, sem que haja custos excessivos de infraestrutura.
+
+### Call 23/11
+- Inteiro para números
+- Uso no terminal
