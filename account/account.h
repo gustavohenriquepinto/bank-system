@@ -1,10 +1,13 @@
-#ifndef ACCOUNT.H
-#define ACCOUNT.H
+#ifndef ACCOUNT_H
+#define ACCOUNT_H
 
 #include <stdbool.h>
 
 #define INSUFICCIENT_MONEY_ERROR -1
+#define MONEY_LIMIT_ERROR -2
+
 #define NO_MONEY 0
+#define MONEY_LIMIT 1.7976931348623157 * pow(10, 308)
 
 typedef struct {
   double balance;

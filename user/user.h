@@ -1,7 +1,7 @@
-#ifndef ACCOUNT.H
-#define ACCOUNT.H
+#ifndef USER_H
+#define USER_H
 
-#include "../bank/account/account.h"
+#include "account/account.h"
 
 typedef struct {
   char* name;
