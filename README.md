@@ -1,5 +1,10 @@
 # PROJETO FINAL
 
+// nomeDaFUNÇÃO (camel case) //functions
+// NOME_DA_CONSTANTE (upper snake case) //consts
+// nome_da_variavel (snake case) //vars
+// NomeDaEstrutura (pascal case) //structs
+
 ## Implementação
 - Linguagem C
 - Interface Gráfica Multiplataforma <gtk/gtk.h> (não essencial) (v3.24.43)

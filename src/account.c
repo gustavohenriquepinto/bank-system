@@ -1,26 +1,23 @@
-#include "account.h"
+#include "include/account.h"
 
-void initialize_account(Account* account) {
-  account->balance = NO_MONEY;
-}
-
-int increase_account_balance(Account* account, double value) {
-  if(account_would_pass_limit(account, value))
-    return MONEY_LIMIT_ERROR;
-  account->balance += value;
-}
-
-int decrease_account_balance(Account* account, double value) {
-  if(!account_has_sufficient_money(account, value))
-    return INSUFICCIENT_MONEY_ERROR;
-  account->balance -= value;
-}
-
-bool account_has_sufficient_money(Account* account, double value) {
+bool accountDoesntHasSufficientMoney(Account* account, long int value) {
   return account->balance >= value;
 }
 
-bool account_would_pass_limit(Account* account, double value) {
-  const double sum = account->balance + value;
-  return sum <= account->balance || sum <= value; // Verifica se houve overflow
+bool accountWouldPassLimit(Account* account, long int value) {
+  const long int sum = account->balance + value;
+  return sum <= account->balance || sum <= value;  // Verifica se houve overflow
+}
+
+void initializeAccount(Account* account) { account->balance = NO_MONEY; }
+
+int increaseAccountBalance(Account* account, long int value) {
+  if (accountWouldPassLimit(account, value)) return MONEY_LIMIT_ERROR;
+  account->balance += value;
+}
+
+int decreaseAccountBalance(Account* account, long int value) {
+  if (accountDoesntHasSufficientMoney(account, value))
+    return INSUFICCIENT_MONEY_ERROR;
+  account->balance -= value;
 }

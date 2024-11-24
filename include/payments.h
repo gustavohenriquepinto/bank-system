@@ -1,10 +1,5 @@
+#ifndef PAYMENTS_H
+#define PAYMENTS_H
 
 
-class main
-{
-private:
-  /* data */
-public:
-  // instant()
-  // scheduled()
-};
+#endif

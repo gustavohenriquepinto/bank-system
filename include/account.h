@@ -7,15 +7,17 @@
 #define MONEY_LIMIT_ERROR -2
 
 #define NO_MONEY 0
-#define MONEY_LIMIT 1.7976931348623157 * pow(10, 308)
+#define MONEY_LIMIT 9223372036854775807
 
 typedef struct {
-  double balance;
+  long int balance;
 } Account;
 
-void initialize_account(Account* account);
-int increase_account_balance(Account* account, double value);
-int decrease_account_balance(Account* account, double value);
-bool account_has_sufficient_money(Account* account, double value);
+bool accountDoesntHasSufficientMoney(Account* account, long int value);
+bool accountWouldPassLimit(Account* account, long int value);
+
+void initializeAccount(Account* account);
+int increaseAccountBalance(Account* account, long int value);
+int decreaseAccountBalance(Account* account, long int value);
 
 #endif
