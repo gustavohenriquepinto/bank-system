@@ -9,15 +9,18 @@
 #define NO_MONEY 0
 #define MONEY_LIMIT 9223372036854775807
 
+typedef long int Money;
+
 typedef struct {
-  long int balance;
+  Money balance;
 } Account;
 
-bool accountDoesntHasSufficientMoney(Account* account, long int value);
-bool accountWouldPassLimit(Account* account, long int value);
+// Privados não precisam ser ddeclarados no arquivo .h
+// bool accountDoesntHasSufficientMoney(Account* account, Money value);
+// bool accountWouldPassLimit(Account* account, Money value);
 
 void initializeAccount(Account* account);
-int increaseAccountBalance(Account* account, long int value);
-int decreaseAccountBalance(Account* account, long int value);
+int increaseAccountBalance(Account* account, Money value);
+int decreaseAccountBalance(Account* account, Money value);
 
 #endif
