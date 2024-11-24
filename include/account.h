@@ -1,15 +1,10 @@
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
 
-#include <stdbool.h>
-
-#define INSUFICCIENT_MONEY_ERROR -1
-#define MONEY_LIMIT_ERROR -2
+#include "./utils.h"
 
 #define NO_MONEY 0
 #define MONEY_LIMIT 9223372036854775807
-
-typedef long int Money;
 
 typedef struct {
   Money balance;

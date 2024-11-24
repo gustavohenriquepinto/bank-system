@@ -1,4 +1,4 @@
-#include "include/date.h"
+#include "../include/date.h"
 
 #define BASE_DAY 1
 #define BASE_MONTH 1
@@ -20,7 +20,7 @@ int daysInMonth(int month, int year) {
 Date convertIntegersToDate(int day, int month, int year) {
   Date date;
   initializeDate(&date);
-  for (int y = BASE_YEAR; y < year; y++) date += is_leap_year(y) ? 366 : 365;
+  for (int y = BASE_YEAR; y < year; y++) date += isLeapYear(y) ? 366 : 365;
   for (int m = 1; m < month; m++) date += daysInMonth(m, year);
   date += day - 1;
   return date;
