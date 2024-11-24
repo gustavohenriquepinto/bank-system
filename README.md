@@ -10,6 +10,10 @@
 
 - Tempo do programa: 1dia, 1min
 
+// NomeDaFuncao (camel case) //functions
+// NOME_DA_CONSTANT (upper snake case) //consts
+// nome_da_variavel (snake case) //vars
+
 ## Objetivos
 - Pilhas, filas e/ou listas ligadas. (CRON, TED)
 - Ponteiros e alocação dinâmica de memória
