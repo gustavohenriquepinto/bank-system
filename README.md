@@ -2,14 +2,13 @@
 
 ## Implementação
 - Linguagem C
-- Interface Gráfica Multiplataforma <gtk/gtk.h>
+- Interface Gráfica Multiplataforma <gtk/gtk.h> (não essencial) (v3.24.43)
 - Criptografia de Dados <openssl/crypto.h>
 
 - Inteiro para números
 - Uso no terminal
 
 - Tempo do programa: 1dia, 1min
-
 
 ## Objetivos
 - Pilhas, filas e/ou listas ligadas. (CRON, TED)
@@ -60,7 +59,7 @@
 - Pagamento de contas de serviços (energia, internet, água, etc.)
 
 - Realização de empréstimos (linha de crédito da conta) (prazos, juros e valores)
-// min: 20k max: 1m
+// min: 20k max: 1M
 
 ## Requisitos Funcionais Não Essenciais
 - Limitação de transferências diárias (diário ou noturno)
