@@ -1,6 +1,7 @@
 #ifndef TRANSACTIONS_H
 #define TRANSACTIONS_H
 
+#include "date.h"
 #include "user.h"
 
 #define DATE_ASCENDING_SORT 0
@@ -14,9 +15,10 @@ typedef struct {
   User origin;
   User destiny;
   Money value;
+  Date date;
 } Transaction;
 
-void printTransaction(Transaction* transaction);
-void printHistory(SortMode sort);
+// void printTransaction(Transaction* transaction);
+// void printHistory(SortMode sort);
 
 #endif
