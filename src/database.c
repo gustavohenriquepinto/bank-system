@@ -1,27 +1,42 @@
-// #include "include/database.h"
+#include "include/database.h"
 
-// typedef struct {
-//   User user;
-//   UsersList* prox;
-// } UsersList;
+typedef struct {
+  User user;
+  UserElement* next;
+} UserElement;
 
-// UsersList users_list;
+typedef struct {
+  UserElement *first, *last;
+  int size;
+} UserList;
 
-// bool databaseHasUser(char* email) {
-//   UsersList aux = users_list;
-//   while (aux.prox != NULL) {
-//     if (utilsCompareIfIsSameString(email, users_list.user.email)) return
-//     true; aux = aux.prox;
-//   }
-//   return false;
-// }
+UserList user_list = (UserList){NULL, NULL, 0};
 
-// bool databaseInsertUser(User* user) {
-//   UsersList aux;
-//   aux.user = user;
-//   aux.prox = NULL;
-//   if (databaseHasUser(user->email)) return false;  // Criar um erro
-//   while (aux.prox != NULL)
-//     aux = aux.prox;
+bool databaseHasUser(char* email) {
+  UserElement* user_element = user_list.first;
+  do {
+    if (utilsCompareIfIsSameString(user_element->user.email, email)) {
+      free(user_element);
+      return true;
+    }
+  } while (user_element->next != NULL);
 
-// }
+  free(user_element);
+  return false;
+}
+
+ErrorController databaseInsertUser(User* user) {
+  UserElement* user_element = malloc(sizeof(UserElement));
+  user_element->user = *user;
+  user_element->next = NULL;
+
+  if (user_list.first == NULL)
+    user_list.first = user_element;
+  else
+    user_list.last->next = user_element;
+
+  user_list.last = user_element;
+  user_list.size++;
+  free(user_element);
+  return NO_ERROR;
+}

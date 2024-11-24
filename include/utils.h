@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "./errors.h"
+#include "errors.h"
 
 #define DATE_ASCENDING_SORT 0
 #define DATE_DESCENDING_SORT 1

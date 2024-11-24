@@ -1,10 +1,10 @@
-// #ifndef DATABASE_H
-// #define DATABASE_H
+#ifndef DATABASE_H
+#define DATABASE_H
 
-// #include "include/user.h"
-// #include "include/utils.h"
+#include "user.h"
+#include "utils.h"
 
-// bool databseInsertUser(User* user);
-// bool databaseHasUser(char* email);
+bool databseInsertUser(User* user);
+ErrorController databaseHasUser(char* email);
 
-// #endif
+#endif

@@ -1,7 +1,7 @@
 #ifndef DATE_H
 #define DATE_H
 
-#include "./utils.h"
+#include "utils.h"
 
 typedef int Date;
 
