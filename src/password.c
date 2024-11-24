@@ -1,5 +1,4 @@
-
-#include "include/passwords.h"
+#include "../include/password.h"
 
 #include <openssl/sha.h>
 #include <stdlib.h>
@@ -17,7 +16,7 @@ void calculateSHA256(char* text, unsigned char hash[SHA256_DIGEST_LENGTH]) {
 // Public
 void initializeEncryptedPassword(EncryptedPassword* password, char* text) {
   password = malloc(SHA256_DIGEST_LENGTH * sizeof(unsigned char));
-  calculateSHA256(text, password);
+  calculateSHA256(text, *password);
 }
 
 bool checkCorrectPassword(EncryptedPassword password, char* text) {

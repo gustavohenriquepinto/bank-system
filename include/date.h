@@ -1,11 +1,7 @@
 #ifndef DATE_H
 #define DATE_H
 
-#include <stdbool.h>
-
-#define INVALID_DAY_ERROR -1
-#define INVALID_MONTH_ERROR -2
-#define INVALID_YEAR_ERROR -3
+#include "./utils.h"
 
 typedef int Date;
 

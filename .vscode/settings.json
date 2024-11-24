@@ -2,6 +2,10 @@
   "editor.formatOnSave": true,
   "C_Cpp.clang_format_style": "google",
   "files.associations": {
-    "stdbool.h": "c"
+    "stdbool.h": "c",
+    "locale.h": "c",
+    "errors.h": "c",
+    "utils.h": "c",
+    "user.h": "c"
   },
 }

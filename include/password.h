@@ -1,7 +1,7 @@
 #ifndef PASSWORDS_H
 #define PASSWORDS_H
 
-#include <stdbool.h>
+#include "./utils.h"
 
 typedef unsigned char* EncryptedPassword;
 

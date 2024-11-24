@@ -1,4 +1,6 @@
-#include "include/account.h"
+#include "../include/account.h"
+
+#include "../include/utils.h"
 
 bool accountDoesntHasSufficientMoney(Account* account, Money value) {
   return account->balance >= value;
