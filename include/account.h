@@ -18,5 +18,4 @@ int increase_account_balance(Account* account, double value);
 int decrease_account_balance(Account* account, double value);
 bool account_has_sufficient_money(Account* account, double value);
 
-
 #endif
