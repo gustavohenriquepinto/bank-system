@@ -1,13 +1,13 @@
 #ifndef USER_H
 #define USER_H
 
-#include "account/account.h"
+#include "account.h"
+#include "passwords.h"
 
 typedef struct {
   char* name;
-  Account checking_acount;
-  Account saving_account;
+  Account account;
+  EncryptedPassword password;
 } User;
 
 #endif
-

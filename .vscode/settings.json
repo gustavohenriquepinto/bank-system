@@ -1,0 +1,7 @@
+{
+  "editor.formatOnSave": true,
+  "C_Cpp.clang_format_style": "google",
+  "files.associations": {
+    "stdbool.h": "c"
+  },
+}
