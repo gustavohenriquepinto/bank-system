@@ -15,10 +15,6 @@ typedef struct {
   Money balance;
 } Account;
 
-// Privados não precisam ser ddeclarados no arquivo .h
-// bool accountDoesntHasSufficientMoney(Account* account, Money value);
-// bool accountWouldPassLimit(Account* account, Money value);
-
 void initializeAccount(Account* account);
 int increaseAccountBalance(Account* account, Money value);
 int decreaseAccountBalance(Account* account, Money value);

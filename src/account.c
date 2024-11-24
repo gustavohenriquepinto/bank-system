@@ -9,7 +9,7 @@ bool accountWouldPassLimit(Account* account, Money value) {
   return sum <= account->balance || sum <= value;  // Verifica se houve overflow
 }
 
-void initializeAccount(Account* account) { account->balance = NO_MONEY; }
+void initializeAccount(Account* account) { account->balance = 0; }
 
 int increaseAccountBalance(Account* account, Money value) {
   if (accountWouldPassLimit(account, value)) return MONEY_LIMIT_ERROR;
