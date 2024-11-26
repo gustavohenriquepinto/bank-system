@@ -4,7 +4,7 @@
 #include "user.h"
 #include "utils.h"
 
-bool databseInsertUser(User* user);
-ErrorController databaseHasUser(char* email);
+ErrorController databaseInsertUser(User* user);
+bool databaseHasUser(char* email);
 
 #endif

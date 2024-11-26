@@ -11,7 +11,7 @@ typedef struct {
 } Account;
 
 void initializeAccount(Account* account);
-int increaseAccountBalance(Account* account, Money value);
-int decreaseAccountBalance(Account* account, Money value);
+ErrorController increaseAccountBalance(Account* account, Money value);
+ErrorController decreaseAccountBalance(Account* account, Money value);
 
 #endif

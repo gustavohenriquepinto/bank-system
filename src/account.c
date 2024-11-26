@@ -13,13 +13,15 @@ bool accountWouldPassLimit(Account* account, Money value) {
 
 void initializeAccount(Account* account) { account->balance = 0; }
 
-int increaseAccountBalance(Account* account, Money value) {
+ErrorController increaseAccountBalance(Account* account, Money value) {
   if (accountWouldPassLimit(account, value)) return MONEY_LIMIT_ERROR;
   account->balance += value;
+  return NO_ERROR;
 }
 
-int decreaseAccountBalance(Account* account, Money value) {
+ErrorController decreaseAccountBalance(Account* account, Money value) {
   if (accountDoesntHasSufficientMoney(account, value))
     return INSUFICCIENT_MONEY_ERROR;
   account->balance -= value;
+  return NO_ERROR;
 }

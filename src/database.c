@@ -1,9 +1,11 @@
-#include "include/database.h"
+#include "../include/database.h"
 
-typedef struct {
+typedef struct UserElement {
   User user;
-  UserElement* next;
-} UserElement;
+  struct UserElement* next;
+};
+
+typedef struct UserElement UserElement;
 
 typedef struct {
   UserElement *first, *last;
