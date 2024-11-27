@@ -1,9 +1,9 @@
 #ifndef USER_H
 #define USER_H
 
-#include "./account.h"
-#include "./password.h"
-#include "./utils.h"
+#include "account.h"
+#include "password.h"
+#include "utils.h"
 
 typedef struct {
   char* name;

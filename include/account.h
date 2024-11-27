@@ -1,7 +1,7 @@
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
 
-#include "./utils.h"
+#include "utils.h"
 
 #define NO_MONEY 0
 #define MONEY_LIMIT 9223372036854775807
@@ -11,7 +11,7 @@ typedef struct {
 } Account;
 
 void initializeAccount(Account* account);
-int increaseAccountBalance(Account* account, Money value);
-int decreaseAccountBalance(Account* account, Money value);
+ErrorController increaseAccountBalance(Account* account, Money value);
+ErrorController decreaseAccountBalance(Account* account, Money value);
 
 #endif
