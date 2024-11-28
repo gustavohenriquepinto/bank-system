@@ -27,7 +27,7 @@ bool databaseHasUser(char* email) {
   return false;
 }
 
-ErrorController databaseInsertUser(User* user) {
+int databaseInsertUser(User* user) {
   UserElement* user_element = malloc(sizeof(UserElement));
   user_element->user = *user;
   user_element->next = NULL;
