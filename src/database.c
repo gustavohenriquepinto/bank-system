@@ -1,90 +1,88 @@
 #include "../include/database.h"
 
-// typedef struct UserElement {
-//   User user;
-//   struct UserElement* next;
-// };
+// sabe o que fazer?
+// consegue implementar da mesma forma que fiz com usuarios para adicionar
+// transações num arquivo binario? no caso, as transações nunca vao ser
+// excluidas. unica diferença. seria só replicar a lógica do arquivo de usuários
 
-// typedef struct UserElement UserElement;
+// Consigo, mas seria todas as transações num só arquivo mesmo? Sem separar por
+// usuário?
+// Isso -Diego
 
-// typedef struct {
-//   UserElement *first, *last;
-//   int size;
-// } UserList;
+FILE* user_list;
+int user_size;
 
-// UserList user_list = (UserList){NULL, NULL, 0};
+FILE* transaction_list;
+int transaction_size;
 
-// bool databaseHasUser(char* email) {
-//   UserElement* user_element = user_list.first;
-//   do {
-//     if (utilsCompareIfIsSameString(user_element->user.email, email)) {
-//       free(user_element);
-//       return true;
-//     }
-//   } while (user_element->next != NULL);
+void databaseInitialize() {
+  user_list = fopen("users.data", "ab+");
+  fseek(user_list, SEEK_END, 0);
+  user_size = ftell(user_list) / sizeof(User);
 
-//   free(user_element);
-//   return false;
-// }
-
-// ErrorController databaseInsertUser(User* user) {
-//   UserElement* user_element = malloc(sizeof(UserElement));
-//   user_element->user = *user;
-//   user_element->next = NULL;
-
-//   if (user_list.first == NULL)
-//     user_list.first = user_element;
-//   else
-//     user_list.last->next = user_element;
-
-//   user_list.last = user_element;
-//   user_list.size++;
-//   free(user_element);
-//   return NO_ERROR;
-// }
-
-// ErrorController databaseRemoveUser(User* user) {
-//   UserElement* user_element = user_list.first;
-//   do {
-//     if (utilsCompareIfIsSameString(user_element->user.email, user->email)) {
-//       user_element->next = user_element->next->next;
-//       user_list.size--;
-//       free(user_element);
-//       return NO_ERROR;
-//     }
-//   } while (user_element->next != NULL);
-
-//   free(user_element);
-//   return USER_DOENST_EXIST_ERROR;
-// }
-
-#define MAX_USERS 100
-User user_list[MAX_USERS];
-int size = 0;
+  transaction_list = fopen("transactions.data", "ab+");
+  fseek(transaction_list, SEEK_END, 0);
+  transaction_size = ftell(transaction_list) / sizeof(Transaction);
+}
 
 bool databaseHasUser(char* email) {
-  for (int i = 0; i < MAX_USERS; i++)
-    if (utilsCompareIfIsSameString(user_list[i].email, email)) return true;
+  rewind(user_list);
+  fseek(user_list, SEEK_SET, 0);
+  while (!feof(user_list)) {
+    User user;
+    fread(&user, sizeof(User), 1, user_list);
+    if (utilsCompareIfIsSameString(email, user.email)) return true;
+  }
   return false;
+}
+
+ErrorController databaseGetUser(char* email, User* user) {
+  rewind(user_list);
+  fseek(user_list, SEEK_SET, 0);
+  while (!feof(user_list)) {
+    User user_temp;
+    fread(&user_temp, sizeof(User), 1, user_list);
+    if (utilsCompareIfIsSameString(email, user_temp.email)) {
+      *user = user_temp;
+      return NO_ERROR;
+    }
+  }
+  return USER_DOENST_EXIST_ERROR;
+}
+
+int databaseGetAmountOfUsersRegisters() {
+  // implement
+  return user_size;
 }
 
 ErrorController databaseInsertUser(User* user) {
-  User* _user = &user_list[size];
-  _user->name = user->name;
-  _user->email = user->email;
-  _user->password = user->password;
-  _user->account = user->account;
-  free(_user);
-  size++;
+  rewind(user_list);
+  fseek(user_list, SEEK_END, 0);
+  fwrite(user, sizeof(User), 1, user_list);
+  user_size++;
   return NO_ERROR;
 }
 
-ErrorController databaseRemoveUser(User* user) {
-  for (int i = 0; i < MAX_USERS; i++)
-    if (utilsCompareIfIsSameString(user_list[i].email, user->email)) {
-            size--;
-    }
+ErrorController databaseRemoveUser(User* user) { return NO_ERROR; }
 
-  return true;
-  return false;
+//////////////////////////////////////////////////////////////////////////
+
+ErrorController databaseInsertTransaction(Transaction* transaction) {
+  fseek(transaction_list, SEEK_END, 0);
+  fwrite(transaction, sizeof(Transaction), 1, transaction_list);
+  transaction_size++;
+  return NO_ERROR;
 }
+
+// ErrorController databaseGetTransactionsOfUser(User* user,
+//                                               LIST_Transaction* list) {
+//   rewind(transaction_list);
+//   while (!feof(transaction_list)) {
+//     Transaction temp;
+//     fread(&temp, sizeof(Transaction), 1, transaction_list);
+//     if (temp.origin == *user || temp.destiny == *user) {
+//       pushBackList(list, &temp);
+//     }
+//   }
+//   return NO_ERROR;
+// }

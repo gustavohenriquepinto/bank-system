@@ -1,8 +1,9 @@
 #include "../include/errors.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
-void error(int errorCode) {
+ErrorController error(int errorCode) {
   switch (errorCode) {
     case INPUT_ERROR:
       printf("Infelizmente seu input não pode ser processado.");
@@ -17,5 +18,8 @@ void error(int errorCode) {
   }
 
   printf("Você será redirecionado para a tela de login novamente");
+  system("pause");
   // userLogin();
+
+  return errorCode;
 }

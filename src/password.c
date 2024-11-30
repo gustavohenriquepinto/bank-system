@@ -1,29 +1,19 @@
 #include "../include/password.h"
 
-#include <openssl/evp.h>
-#include <openssl/sha.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define SAME_HEX 0
+#define KEY 10
 
-void calculateSHA256(char* text, unsigned char hash[SHA256_DIGEST_LENGTH]) {
-  EVP_MD_CTX* ctx = EVP_MD_CTX_new();    
-  EVP_DigestInit_ex(ctx, EVP_sha256(), NULL);
-  EVP_DigestUpdate(ctx, text, strlen(text));
-  EVP_DigestFinal_ex(ctx, hash, NULL);
-  EVP_MD_CTX_free(ctx);
+void passwordEncrypted(EncryptedPassword text, char* ciphered) {
+  int i;
+  for (i = 0; i < strlen(ciphered); i++)
+    ciphered[i] = (((text[i] - 20) + KEY) % 107) + 20;
+  ciphered[i] = '\0';
 }
 
-void initializeEncryptedPassword(EncryptedPassword* password, char* text) {
-  *password = malloc(SHA256_DIGEST_LENGTH * sizeof(unsigned char));
-  calculateSHA256(text, *password);
-}
-
-bool checkCorrectPassword(EncryptedPassword password, char* text) {
-  EncryptedPassword test_password;
-  initializeEncryptedPassword(&test_password, text);
-  bool result = memcmp(password, test_password, SHA256_DIGEST_LENGTH) == SAME_HEX;
-  free(test_password);
-  return result;
+bool passwordIsCorrect(EncryptedPassword password, char* inputPassword) {
+  char encryptedInput[STRING_MAX];
+  passwordEncrypted(inputPassword, encryptedInput);
+  return utilsCompareIfIsSameString(password, encryptedInput);
 }

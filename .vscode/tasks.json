@@ -1,0 +1,37 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Compilar Projeto",
+			"type": "shell",
+			"command": "gcc",
+			"args": [
+				"main.c",
+				"-o",
+				"main.out",
+				"src/*.c",
+				"-Wall",
+				"-Iinclude",
+				"-lcrypto",
+				"-lm"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"detail": "Compilação padrão do projeto usando GCC."
+		},
+		{
+			"type": "vsls",
+			"taskUid": "cppbuild:gcc build active file",
+			"problemMatcher": [
+				"$vsls"
+			],
+			"group": "build",
+			"label": "Shared: C/C++:gcc build active file"
+		}
+	]
+}

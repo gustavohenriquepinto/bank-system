@@ -12,7 +12,7 @@ typedef struct {
   EncryptedPassword password;
 } User;
 
-bool userSignUp();
-bool userSignIn();
+ErrorController userSignUp(User* user);
+ErrorController userSignIn(User* user);
 
 #endif

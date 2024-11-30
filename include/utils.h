@@ -1,6 +1,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include <locale.h>
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -18,7 +19,13 @@
 #define STRING_READ "%255s"
 
 typedef char SortMode;
+typedef int Number;
 typedef long int Money;
+
+typedef int PAYMENT_METHOD;
+#define TED 0
+#define BILLET 1
+#define PIX 2
 
 void utilsClearTerminal();
 bool utilsCompareIfIsSameString(char*, char*);
