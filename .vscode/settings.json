@@ -9,6 +9,8 @@
     "user.h": "c",
     "stdio.h": "c",
     "sha.h": "c",
-    "evp.h": "c"
+    "evp.h": "c",
+    "database.h": "c",
+    "transaction.h": "c"
   },
 }

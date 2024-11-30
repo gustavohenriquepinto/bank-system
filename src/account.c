@@ -1,5 +1,6 @@
 #include "../include/account.h"
 
+#include "../include/database.h"
 #include "../include/utils.h"
 
 void initializeAccount(Account* account) {
@@ -14,13 +15,12 @@ void accountPrint(Account* account) {
   puts("");
 }
 
-void accountPrintMoney(Money money) { printf("%2f", money / 100); }
+void accountPrintMoney(Money money) { printf("%2ld", money / 100); }
 
 Money accountGetBalance(Account* account) { return account->balance; }
 
 void accountDepositMenu(Account* account) {
-  long deposit = 0.0;
-  char action;
+  double deposit = 0.0;
   Money balance;
 
   utilsClearTerminal();
@@ -33,11 +33,11 @@ void accountDepositMenu(Account* account) {
 
   utilsClearTerminal();
   accountPrint(account);
-  puts('Deposito realizado com sucesso');
+  puts("Deposito realizado com sucesso");
 }
 
 void accountWithdrawalMenu(Account* account) {
-  long deposit = 0.0;
+  double deposit = 0.0;
   Money value;
 
   utilsClearTerminal();
@@ -50,10 +50,10 @@ void accountWithdrawalMenu(Account* account) {
   if (accountDoesntHasSufficientMoney(account, value))
     return error(INSUFICCIENT_MONEY_ERROR);
 
-  transactionDecreaseAccount(account, value);
+  transactionWithdrwawAccount(account, value);
   utilsClearTerminal();
   accountPrint(account);
-  puts('Saque realizado com sucesso');
+  puts("Saque realizado com sucesso");
 }
 
 bool accountDoesntHasSufficientMoney(Account* account, Money value) {

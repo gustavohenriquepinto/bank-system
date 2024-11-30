@@ -4,7 +4,7 @@ void transactionMenu(Account* account) {
   PAYMENT_METHOD method;
 
   utilsClearTerminal();
-  accountPrint(account); 
+  accountPrint(account);
 
   puts("Escolhar o metódo de pagamento:");
   scanf("%d", &method);
@@ -22,6 +22,7 @@ ErrorController transactionPayBill(Account* account, Money value) {
   // if (accountDecreaseBalance(account, value) == INSUFICCIENT_MONEY_ERROR)
   //   return INSUFICCIENT_MONEY_ERROR;
   // Agendado para dois dias
+  return NO_ERROR;
 }
 
 ErrorController transactionNow(Account* from, Account* to, Money value) {
@@ -43,4 +44,5 @@ ErrorController transactionTED(Account* from, Account* to, Money value) {
   // if (accountDecreaseBalance(from, value) == INSUFICCIENT_MONEY_ERROR)
   //   return INSUFICCIENT_MONEY_ERROR;
   // Agendada para dois dias
+  return NO_ERROR;
 }

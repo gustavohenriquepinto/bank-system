@@ -1,6 +1,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include <locale.h>
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -18,10 +19,10 @@
 #define STRING_READ "%255[^\n]"
 
 typedef char SortMode;
-typedef long int Number;
+typedef int Number;
 typedef long int Money;
 
-typedef long int PAYMENT_METHOD;
+typedef int PAYMENT_METHOD;
 #define TED 0
 #define BILLET 1
 #define PIX 2

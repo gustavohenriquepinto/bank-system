@@ -1,6 +1,6 @@
 #include "../include/report.h"
 
-ErrorController reportMenu() {
+void reportMenu() {
   puts("Deseja gerar qual relatório?");
   puts("0. Voltar");
   puts("1. Saques/Depositos");

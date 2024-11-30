@@ -1,10 +1,10 @@
-#include <locale.h>
-#include <stdio.h>
-
+#include "include/database.h"
+#include "include/transaction.h"
 #include "include/user.h"
+#include "include/utils.h"
 
 ErrorController menu(User* user) {
-  int action = -1;
+  char action = -1;
 
   utilsClearTerminal();
   puts("O que você deseja?");
@@ -15,16 +15,16 @@ ErrorController menu(User* user) {
   puts("4. Realizar uma transferência");
   puts("5. Gerar um relatório");
 
-  scanf("%d", &action);
+  scanf("%c", &action);
   if (action < 0) return menu(user);
-  if (action == 0) return main();
+  if (action == 0) return NO_ERROR;
   if (action == 1) accountPrintMoney(accountGetBalance(&(user->account)));
   if (action == 2) accountDepositMenu(&(user->account));
   if (action == 3) accountWithdrawalMenu(&(user->account));
   if (action == 4) transactionMenu(&(user->account));
 
-  puts('Aperte enter para retornar ao menu');
-  scanf("%c");
+  puts("Aperte enter para retornar ao menu");
+  scanf("%c", &action);
   menu(user);
 
   return 0;
@@ -50,7 +50,7 @@ int main(void) {
     if (action == 2) userSignUp(&user);
   }
 
-  menu(&user);
+  if (action) menu(&user);
 
   return 0;
 }

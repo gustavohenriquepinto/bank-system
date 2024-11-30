@@ -12,9 +12,6 @@ typedef struct {
   EncryptedPassword password;
 } User;
 
-const User INVALID_USER = (User) {};
-const User FINANCE_BANK = (User) {};
-
 ErrorController userSignUp(User* user);
 ErrorController userSignIn(User* user);
 

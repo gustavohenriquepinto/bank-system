@@ -1,6 +1,7 @@
 #include "../include/user.h"
 
 #include "../include/database.h"
+#include "../include/password.h"
 
 void userInitialize(User *user) {
   user->name = malloc(STRING_MAX * sizeof(char));
@@ -8,7 +9,7 @@ void userInitialize(User *user) {
 }
 
 void userConfigurePassword(User *user, char *password) {
-  initializeEncryptedPassword(&(user->password), password);
+  passwordInitialize(&(user->password), password);
 }
 
 void userFree(User *user) {
@@ -39,7 +40,8 @@ ErrorController userSignUp(User *user) {
   if (!utilsCompareIfIsSameString(password, confirm_password)) {
     free(password);
     free(confirm_password);
-    return error(DIFFERENT_PASSWORDS_ERROR);
+    error(DIFFERENT_PASSWORDS_ERROR);
+    return DIFFERENT_PASSWORDS_ERROR;
   }
 
   userConfigurePassword(user, password);
@@ -48,7 +50,7 @@ ErrorController userSignUp(User *user) {
   free(password);
   free(confirm_password);
 
-  return true;
+  return NO_ERROR;
 }
 
 ErrorController userSignIn(User *user) {

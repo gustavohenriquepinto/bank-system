@@ -17,6 +17,8 @@ void accountPrintMoney(Money);
 void accountDepositMenu(Account*);
 void accountWithdrawalMenu(Account*);
 
+bool accountDoesntHasSufficientMoney(Account*, Money);
+
 Money accountGetBalance(Account*);
 ErrorController accountIncreaseBalance(Account*, Money);
 ErrorController accountDecreaseBalance(Account*, Money);

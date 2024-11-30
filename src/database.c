@@ -1,12 +1,28 @@
 #include "../include/database.h"
 
+// sabe o que fazer?
+// consegue implementar da mesma forma que fiz com usuarios para adicionar
+// transações num arquivo binario? no caso, as transações nunca vao ser
+// excluidas. unica diferença. seria só replicar a lógica do arquivo de usuários
+
+// Consigo, mas seria todas as transações num só arquivo mesmo? Sem separar por
+// usuário?
+// Isso -Diego
+
 FILE* user_list;
 int user_size;
 
+FILE* transaction_list;
+int transaction_size;
+
 void databaseInitialize() {
-  user_list = fopen("users.data", "a");
+  user_list = fopen("users.data", "ab+");
   fseek(user_list, SEEK_END, 0);
   user_size = ftell(user_list) / sizeof(User);
+
+  transaction_list = fopen("transactions.data", "ab+");
+  fseek(transaction_list, SEEK_END, 0);
+  transaction_size = ftell(transaction_list) / sizeof(Transaction);
 }
 
 bool databaseHasUser(char* email) {
@@ -25,7 +41,7 @@ ErrorController databaseGetUser(char* email, User* user) {
   fseek(user_list, SEEK_SET, 0);
   while (!feof(user_list)) {
     User user_temp;
-    fread(&user, sizeof(User), 1, user_list);
+    fread(&user_temp, sizeof(User), 1, user_list);
     if (utilsCompareIfIsSameString(email, user_temp.email)) {
       *user = user_temp;
       return NO_ERROR;
@@ -41,16 +57,16 @@ ErrorController databaseInsertUser(User* user) {
   fseek(user_list, SEEK_END, 0);
   fwrite(user, sizeof(User), 1, user_list);
   user_size++;
+  return NO_ERROR;
 }
 
-// ErrorController databaseRemoveUser(User* user) {
-//   for (int i = 0; i < MAX_USERS; i++)
-//     if (utilsCompareIfIsSameString(user_list[i].email, user->email)) {
-//       // Implementar: remover usuário da lista e trazer todos para frente
-//       user_size--;
-//       break;
-//     }
-//   return NO_ERROR;
-// }
+ErrorController databaseRemoveUser(User* user) { return NO_ERROR; }
 
 //////////////////////////////////////////////////////////////////////////
+
+ErrorController databaseInsertTransaction(Transaction* transaction) {
+  fseek(transaction_list, SEEK_END, 0);
+  fwrite(transaction, sizeof(Transaction), 1, transaction_list);
+  transaction_size++;
+  return NO_ERROR;
+}
