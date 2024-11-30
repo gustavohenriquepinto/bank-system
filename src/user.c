@@ -9,7 +9,7 @@ void userInitialize(User *user) {
 }
 
 void userConfigurePassword(User *user, char *password) {
-  passwordInitialize(&(user->password), password);
+  passwordEncrypted(&(user->password), password);
 }
 
 void userFree(User *user) {
