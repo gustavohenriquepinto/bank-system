@@ -38,6 +38,13 @@ void eraseList(LIST_Transaction* list, int pos) {
   list->size--;
 }
 
+PONT getFromList(LIST_Transaction* list, int pos){
+  if(pos<0||pos>=list->size) return NULL;
+  PONT end = list->start;
+  for(int i = 0; i<pos; i++) end = end->next;
+  return end;
+}
+
 void freeList(LIST_Transaction* list) {
   ELEMENT* end = list->start;
   while (end != NULL) {
@@ -46,4 +53,34 @@ void freeList(LIST_Transaction* list) {
     free(erase);
   }
   free(list);
+}
+
+bool compareTransaction(Transaction a, Transaction b, SortMode mode){
+  switch (mode){
+  case DATE_ASCENDING_SORT:
+    return a.date > b.date;
+  case DATE_DESCENDING_SORT:
+    return a.date < b.date;
+  case VALUE_ASCENDING_SORT:
+    return a.value > b.value;
+  case VALUE_DESCENDING_SORT:
+    return a.value < b.value;
+  default:
+    return false;
+  }
+}
+
+void sortList(LIST_Transaction* list, SortMode mode){
+  for(int i = list->size-1; i>0; i--){
+    PONT jpont = list->start;
+    for(int j = 0; j<i; j++){
+      if(compareTransaction(jpont->reg, jpont->next->reg, mode)){
+        PONT aux = jpont->next->next;
+        jpont->next->next = jpont;
+        jpont->next = aux;
+        if(j==0) list->start = aux;
+      }
+      jpont = jpont->next;
+    }
+  }
 }
