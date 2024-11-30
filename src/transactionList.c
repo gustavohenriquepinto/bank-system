@@ -79,8 +79,7 @@ void sortList(LIST_Transaction* list, SortMode mode){
         jpont->next->next = jpont;
         jpont->next = aux;
         if(j==0) list->start = aux;
-      }
-      jpont = jpont->next;
+      } else jpont = jpont->next;
     }
   }
 }
