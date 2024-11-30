@@ -1,13 +1,25 @@
 #include "../include/user.h"
 
+#include "../include/database.h"
+
 void userInitialize(User *user) {
   user->name = malloc(STRING_MAX * sizeof(char));
   user->email = malloc(STRING_MAX * sizeof(char));
 }
 
+void userConfigurePassword(User *user, char *password) {
+  initializeEncryptedPassword(&(user->password), password);
+}
+
 void userFree(User *user) {
   free(user->name);
   free(user->email);
+  free(user->password);
+}
+
+void userGetString(char *message, char *destiny) {
+  printf("%s", message);
+  scanf(STRING_READ, destiny);
 }
 
 bool userSignUp() {
@@ -20,20 +32,18 @@ bool userSignUp() {
 
   puts("Vamos criar sua conta");
 
-  puts("Digite seu nome completo:");
-  scanf(STRING_READ, user.name);
+  userGetString("Digite seu nome: ", user.name);
+  userGetString("Digite seu email: ", user.email);
+  userGetString("Digite sua senha: ", password);
+  userGetString("Confirme sua senha: ", confirm_password);
 
-  puts("Digite seu e-mail:");
-  scanf(STRING_READ, user.email);
-
-  puts("Digite sua senha de acesso:");
-  scanf(STRING_READ, password);
-
-  puts("Confirme sua senha:");
-  scanf(STRING_READ, confirm_password);
-
-  if (!utilsCompareIfIsSameString(password, confirm_password)) return false;
-  initializeEncryptedPassword(&user.password, password);
+  if (!utilsCompareIfIsSameString(password, confirm_password)) {
+    userFree(&user);
+    free(password);
+    free(confirm_password);
+    return false;
+  }
+  userConfigurePassword(&user, password);
 
   puts("Chegamos aqui");
 
@@ -44,40 +54,24 @@ bool userSignUp() {
   return true;
 }
 
-bool userSignIn() {
+int userSignIn() {
   char *email = malloc(STRING_MAX * sizeof(char));
   char *password = malloc(STRING_MAX * sizeof(char));
 
-  utilsClearTerminal();
+  userGetEmail(email);
 
-  printf("Digite seu e-mail: ");
-  scanf(STRING_READ, email);
+  if (!databaseHasUser(email)) {
+    puts("Usuário não existe.");
+    free(email);
+    return USER_DOENST_EXIST_ERROR;
+  }
 
-  // função para achar usuario
-  // return USER_DOENST_EXIST_ERROR
-
-  printf("Digite sua senha: ");
-  scanf(STRING_READ, password);
+  userGetPassword(password);
 
   puts("usuario logado");
 
   free(email);
   free(password);
 
-  return true;
-}
-
-bool userLogin() {
-  int action;
-
-  utilsClearTerminal();
-  puts("Bem vindo ao Finance Bank, como deseja prosseguir?");
-  puts("1. Entrar na sua conta");
-  puts("2. Criar uma conta");
-  scanf("%d", &action);
-
-  if (action == 1) return userSignIn();
-  if (action == 2) return userSignUp();
-
-  return false;
+  return NO_ERROR;
 }

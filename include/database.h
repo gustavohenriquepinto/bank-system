@@ -5,6 +5,7 @@
 #include "utils.h"
 
 ErrorController databaseInsertUser(User* user);
+ErrorController databaseRemoveUser(User* user);
 bool databaseHasUser(char* email);
 
 #endif
