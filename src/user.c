@@ -19,8 +19,10 @@ void userFree(User *user) {
 }
 
 void userGetString(char *message, char *destiny) {
+  fflush(stdin);
   printf("%s", message);
   scanf(STRING_READ, destiny);
+  fflush(stdin);
 }
 
 ErrorController userSignUp(User *user) {
@@ -56,8 +58,9 @@ ErrorController userSignUp(User *user) {
 ErrorController userSignIn(User *user) {
   char email[STRING_MAX];
   char password[STRING_MAX];
-  userGetString("Digite seu email: ", email);
 
+  utilsClearTerminal();
+  userGetString("Digite seu email: ", email);
   if (!databaseHasUser(email)) return USER_DOENST_EXIST_ERROR;
 
   databaseGetUser(email, user);

@@ -50,7 +50,10 @@ ErrorController databaseGetUser(char* email, User* user) {
   return USER_DOENST_EXIST_ERROR;
 }
 
-int databaseGetAmountOfUsersRegisters() { return user_size; }
+int databaseGetAmountOfUsersRegisters() {
+  // implement
+  return user_size;
+}
 
 ErrorController databaseInsertUser(User* user) {
   rewind(user_list);
@@ -70,3 +73,16 @@ ErrorController databaseInsertTransaction(Transaction* transaction) {
   transaction_size++;
   return NO_ERROR;
 }
+
+// ErrorController databaseGetTransactionsOfUser(User* user,
+//                                               LIST_Transaction* list) {
+//   rewind(transaction_list);
+//   while (!feof(transaction_list)) {
+//     Transaction temp;
+//     fread(&temp, sizeof(Transaction), 1, transaction_list);
+//     if (temp.origin == *user || temp.destiny == *user) {
+//       pushBackList(list, &temp);
+//     }
+//   }
+//   return NO_ERROR;
+// }

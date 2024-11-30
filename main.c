@@ -16,6 +16,8 @@ ErrorController menu(User* user) {
   puts("5. Gerar um relatório");
 
   scanf("%c", &action);
+  scanf("%*c");
+
   if (action < 0) return menu(user);
   if (action == 0) return NO_ERROR;
   if (action == 1) accountPrintMoney(accountGetBalance(&(user->account)));
@@ -30,8 +32,9 @@ ErrorController menu(User* user) {
   return 0;
 }
 
-int main(void) {
+ErrorController main(void) {
   int action = -1;
+  ErrorController valid = NO_ERROR;
   User user;
 
   databaseInitialize();
@@ -46,13 +49,14 @@ int main(void) {
     scanf("%d", &action);
 
     if (action == 0) break;
-    if (action == 1) userSignIn(&user);
-    if (action == 2) userSignUp(&user);
+    if (action == 1) valid = userSignIn(&user);
+    if (action == 2) valid = userSignUp(&user);
   }
 
+  if (valid != NO_ERROR) return error(valid);
   if (action) menu(&user);
 
-  return 0;
+  return NO_ERROR;
 }
 
-// gcc main.c -o main.out src/*.c -Wall -Iinclude -lcrypto -lm
+// gcc main.c -o main src/*.c -Wall -Iinclude -lcrypto -lm

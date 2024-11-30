@@ -2,6 +2,7 @@
 #define DATABASE_H
 
 #include "transaction.h"
+#include "transactionList.h"
 #include "user.h"
 #include "utils.h"
 

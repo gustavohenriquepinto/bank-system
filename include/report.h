@@ -3,6 +3,6 @@
 
 #include "utils.h"
 
-void reportMenu();
+ErrorController reportMenu();
 
 #endif

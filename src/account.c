@@ -47,8 +47,10 @@ void accountWithdrawalMenu(Account* account) {
 
   value = (Money)(deposit * 100);
 
-  if (accountDoesntHasSufficientMoney(account, value))
-    return error(INSUFICCIENT_MONEY_ERROR);
+  if (accountDoesntHasSufficientMoney(account, value)) {
+    error(INSUFICCIENT_MONEY_ERROR);
+    return;
+  }
 
   transactionWithdrwawAccount(account, value);
   utilsClearTerminal();

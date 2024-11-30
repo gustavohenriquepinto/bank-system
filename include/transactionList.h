@@ -2,7 +2,7 @@
 
 typedef struct aux {
   Transaction reg;
-  struct aux* prox;
+  struct aux* next;
 } ELEMENT;
 
 typedef ELEMENT* PONT;

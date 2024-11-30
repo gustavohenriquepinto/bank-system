@@ -3,9 +3,9 @@
 
 #include "utils.h"
 
-typedef unsigned char* EncryptedPassword;
+typedef char* EncryptedPassword;
 
-void passwordInitialize(EncryptedPassword* password, char* text);
-bool passwordIsCorrect(EncryptedPassword password, char* text);
+void passwordEncrypted(EncryptedPassword, char*);
+bool passwordIsCorrect(EncryptedPassword, char*);
 
 #endif

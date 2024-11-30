@@ -16,7 +16,7 @@
 #define VALUE_DESCENDING_SORT 3
 
 #define STRING_MAX 256
-#define STRING_READ "%255[^\n]"
+#define STRING_READ "%255s"
 
 typedef char SortMode;
 typedef int Number;
