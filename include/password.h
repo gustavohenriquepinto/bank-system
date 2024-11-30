@@ -5,7 +5,7 @@
 
 typedef unsigned char* EncryptedPassword;
 
-void initializeEncryptedPassword(EncryptedPassword* password, char* text);
-bool checkCorrectPassword(EncryptedPassword password, char* text);
+void passwordInitialize(EncryptedPassword* password, char* text);
+bool passwordIsCorrect(EncryptedPassword password, char* text);
 
 #endif

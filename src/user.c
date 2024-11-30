@@ -22,56 +22,48 @@ void userGetString(char *message, char *destiny) {
   scanf(STRING_READ, destiny);
 }
 
-bool userSignUp() {
-  User user;
+ErrorController userSignUp(User *user) {
   char *password = malloc(STRING_MAX * sizeof(char));
   char *confirm_password = malloc(STRING_MAX * sizeof(char));
 
   utilsClearTerminal();
-  userInitialize(&user);
+  userInitialize(user);
 
   puts("Vamos criar sua conta");
 
-  userGetString("Digite seu nome: ", user.name);
-  userGetString("Digite seu email: ", user.email);
+  userGetString("Digite seu nome: ", user->name);
+  userGetString("Digite seu email: ", user->email);
   userGetString("Digite sua senha: ", password);
   userGetString("Confirme sua senha: ", confirm_password);
 
   if (!utilsCompareIfIsSameString(password, confirm_password)) {
-    userFree(&user);
     free(password);
     free(confirm_password);
-    return false;
+    return error(DIFFERENT_PASSWORDS_ERROR);
   }
-  userConfigurePassword(&user, password);
 
-  puts("Chegamos aqui");
+  userConfigurePassword(user, password);
+  databaseInsertUser(user);
 
-  userFree(&user);
   free(password);
   free(confirm_password);
 
   return true;
 }
 
-int userSignIn() {
-  char *email = malloc(STRING_MAX * sizeof(char));
-  char *password = malloc(STRING_MAX * sizeof(char));
+ErrorController userSignIn(User *user) {
+  char email[STRING_MAX];
+  char password[STRING_MAX];
+  userGetString("Digite seu email: ", email);
 
-  userGetEmail(email);
+  if (!databaseHasUser(email)) return USER_DOENST_EXIST_ERROR;
 
-  if (!databaseHasUser(email)) {
-    puts("Usuário não existe.");
-    free(email);
-    return USER_DOENST_EXIST_ERROR;
-  }
+  databaseGetUser(email, user);
 
-  userGetPassword(password);
+  userGetString("Digite sua senha: ", password);
 
-  puts("usuario logado");
-
-  free(email);
-  free(password);
+  if (!passwordIsCorrect(user->password, password))
+    return INCORRECT_PASSWORD_ERROR;
 
   return NO_ERROR;
 }

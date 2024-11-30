@@ -12,7 +12,10 @@ typedef struct {
   EncryptedPassword password;
 } User;
 
-bool userSignUp();
-bool userSignIn();
+const User INVALID_USER = (User) {};
+const User FINANCE_BANK = (User) {};
+
+ErrorController userSignUp(User* user);
+ErrorController userSignIn(User* user);
 
 #endif

@@ -10,6 +10,9 @@ typedef int ErrorController;
 
 // Erros de Usuário
 #define USER_DOENST_EXIST_ERROR 201
+#define INCORRECT_PASSWORD_ERROR 202
+#define DIFFERENT_PASSWORDS_ERROR 203
+
 
 // Erros em Transações
 #define INSUFICCIENT_MONEY_ERROR 301
@@ -19,5 +22,7 @@ typedef int ErrorController;
 #define INVALID_DAY_ERROR 401
 #define INVALID_MONTH_ERROR 402
 #define INVALID_YEAR_ERROR 403
+
+void error(int);
 
 #endif

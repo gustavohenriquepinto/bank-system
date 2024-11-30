@@ -7,11 +7,18 @@
 #define MONEY_LIMIT 9223372036854775807
 
 typedef struct {
+  Number number;
   Money balance;
 } Account;
 
-void initializeAccount(Account* account);
-ErrorController increaseAccountBalance(Account* account, Money value);
-ErrorController decreaseAccountBalance(Account* account, Money value);
+void initializeAccount(Account*);
+void accountPrint(Account*);
+void accountPrintMoney(Money);
+void accountDepositMenu(Account*);
+void accountWithdrawalMenu(Account*);
+
+Money accountGetBalance(Account*);
+ErrorController accountIncreaseBalance(Account*, Money);
+ErrorController accountDecreaseBalance(Account*, Money);
 
 #endif

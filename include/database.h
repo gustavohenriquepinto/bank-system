@@ -6,6 +6,7 @@
 
 ErrorController databaseInsertUser(User* user);
 ErrorController databaseRemoveUser(User* user);
+ErrorController databaseGetUser(char* email, User* user);
 bool databaseHasUser(char* email);
 
 #endif

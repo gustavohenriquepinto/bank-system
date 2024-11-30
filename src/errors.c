@@ -1,6 +1,7 @@
 #include "../include/errors.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 void error(int errorCode) {
   switch (errorCode) {
@@ -17,5 +18,6 @@ void error(int errorCode) {
   }
 
   printf("Você será redirecionado para a tela de login novamente");
+  system("pause");
   // userLogin();
 }
