@@ -1,3 +1,6 @@
+#ifndef TRANSACTION_L_H
+#define TRANSACTION_L_H
+
 #include "transaction.h"
 
 typedef struct aux {
@@ -13,5 +16,8 @@ typedef struct {
 } LIST_Transaction;
 
 void initList(LIST_Transaction* list);
-void insertList(LIST_Transaction* list, Transaction* element);
+void pushBackList(LIST_Transaction* list, Transaction* element);
+void eraseList(LIST_Transaction* list, int pos);
 void freeList(LIST_Transaction* list);
+
+#endif
