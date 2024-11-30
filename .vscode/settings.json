@@ -6,6 +6,9 @@
     "locale.h": "c",
     "errors.h": "c",
     "utils.h": "c",
-    "user.h": "c"
+    "user.h": "c",
+    "stdio.h": "c",
+    "sha.h": "c",
+    "evp.h": "c"
   },
 }

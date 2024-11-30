@@ -14,6 +14,5 @@ typedef struct {
 
 bool userSignUp();
 bool userSignIn();
-bool userLogin();
 
 #endif

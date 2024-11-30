@@ -75,18 +75,3 @@ int userSignIn() {
 
   return NO_ERROR;
 }
-
-bool userLogin() {
-  int action;
-
-  utilsClearTerminal();
-  puts("Bem vindo ao Finance Bank, como deseja prosseguir?");
-  puts("1. Entrar na sua conta");
-  puts("2. Criar uma conta");
-  scanf("%d", &action);
-
-  if (action == 1) return userSignIn();
-  if (action == 2) return userSignUp();
-
-  return false;
-}
