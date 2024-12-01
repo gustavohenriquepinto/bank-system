@@ -19,7 +19,10 @@ ErrorController menu(User* user) {
   scanf("%d", &action);
 
   if (action == 0) return NO_ERROR;
-  if (action == 1) accountPrintMoney(accountGetBalance(&(user->account)));
+  if (action == 1) {
+    accountPrintMoney(accountGetBalance(&(user->account)));
+    system("pause");
+  }
   if (action == 2) accountDepositMenu(&(user->account));
   if (action == 3) accountWithdrawalMenu(&(user->account));
   if (action == 4) transactionMenu(&(user->account));

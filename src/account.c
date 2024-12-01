@@ -11,12 +11,14 @@ void initializeAccount(Account* account) {
 void accountPrint(Account* account) {
   utilsClearTerminal();
   printf("Conta: %d\n", account->number);
-  printf("Saldo: ");
   accountPrintMoney(account->number);
-  puts("");
 }
 
-void accountPrintMoney(Money money) { printf("%2ld", money / 100); }
+void accountPrintMoney(Money money) {
+  printf("Saldo: ");
+  printf("%2ld", money / 100);
+  puts("");
+}
 
 Money accountGetBalance(Account* account) { return account->balance; }
 
