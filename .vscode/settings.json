@@ -11,6 +11,7 @@
     "sha.h": "c",
     "evp.h": "c",
     "database.h": "c",
-    "transaction.h": "c"
+    "transaction.h": "c",
+    "stdlib.h": "c"
   },
 }

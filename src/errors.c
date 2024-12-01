@@ -3,23 +3,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-ErrorController error(int errorCode) {
+#include "../include/user.h"
+
+void error(int errorCode) {
   switch (errorCode) {
     case INPUT_ERROR:
-      printf("Infelizmente seu input não pode ser processado.");
+      puts("Infelizmente seu input nao pode ser processado.");
+      break;
+
+    case USER_ALREADY_EXIST_ERROR:
+      puts("Usuario ja cadastrado.");
       break;
 
     case USER_DOENST_EXIST_ERROR:
-      printf("Usuário não encontrado.");
+      puts("Usuario nao encontrado.");
+      break;
+
+    case INCORRECT_PASSWORD_ERROR:
+      puts("Senha incorreta.");
+      break;
+
+    case DIFFERENT_PASSWORDS_ERROR:
+      puts("Senha de confirmação diferente.");
       break;
 
     default:
       break;
   }
 
-  printf("Você será redirecionado para a tela de login novamente");
+  puts("Voce sera redirecionado para a tela de login novamente:");
   system("pause");
-  // userLogin();
-
-  return errorCode;
+  userLogin();
 }
