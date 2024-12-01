@@ -7,5 +7,6 @@ typedef int Date;
 
 Date newDate(int day, int month, int year);
 bool firstIsMoreRecent(Date date1, Date date2);
+char* dateToText(Date date);
 
 #endif

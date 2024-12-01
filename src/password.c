@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define KEY 839420
+#define KEY 83942098
 
 void passwordEncrypted(char* input, char* password) {
   int i = 0;
@@ -14,9 +14,6 @@ void passwordEncrypted(char* input, char* password) {
 bool passwordIsCorrect(char* input, char* password) {
   char encryptedInput[STRING_MAX];
   passwordEncrypted(input, encryptedInput);
-
-  // printf("Encrypted Input: %s\n", encryptedInput);
-  // printf("Password Stored: %s\n", password);
 
   return utilsCompareIfIsSameString(password, encryptedInput);
 }

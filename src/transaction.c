@@ -75,3 +75,23 @@ ErrorController transactionTED(Account* from, Account* to, Money value) {
   // Agendada para dois dias
   return NO_ERROR;
 }
+
+char* payment(PAYMENT_METHOD method) {
+  switch (method) {
+    case PIX:
+      return "PIX";
+    case TED:
+      return "TED";
+    case BILL:
+      return "Boleto";
+    default:
+      return "Desconhecido";
+  }
+}
+
+char* transactionText(Transaction* transaction) {
+  char result[STRING_MAX];
+  sprintf(result, "%s : %s -> $%d", dateToText(transaction->date),
+          payment(transaction->method), transaction->value);
+  return result;
+}

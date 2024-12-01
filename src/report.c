@@ -7,17 +7,24 @@ int times_reported = 0;
 
 ErrorController reportMenu() {
   utilsClearTerminal();
-  int action = -1;
-  puts("Deseja gerar qual relatório?");
-  puts("0. Voltar");
-  puts("1. Saques/Depositos");
-  puts("2. Extrato bancario");
-  puts("3. Receitas");
-  puts("4. Despesas");
+  // int action = -1;
+  // puts("Deseja gerar qual relatório?");
+  // puts("0. Voltar");
+  // puts("1. Saques/Depositos");
+  // puts("2. Extrato bancario");
+  // puts("3. Receitas");
+  // puts("4. Despesas");
 
-  scanf("%d", &action);
+  // scanf("%d", &action);
 
-  return NO_ERROR;
+  // if (action == 0) return NO_ERROR;
+  // if (action == 1) return NO_ERROR;
+  // if (action == 2) return NO_ERROR;
+  // if (action == 3) return NO_ERROR;
+
+  // return INVALID_ACTION_ERROR;
+
+  return databasePrintTransactions();
 }
 
 void printAllUsers() {

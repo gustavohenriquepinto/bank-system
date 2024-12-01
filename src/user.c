@@ -50,9 +50,6 @@ ErrorController userSignIn(User *user) {
   if (!databaseHasUser(email)) return USER_DOENST_EXIST_ERROR;
 
   databaseGetUser(email, user);
-  printf("Usuário = %s\n", user->name);
-  printf("Email = %s\n", user->email);
-  printf("Senha = %s\n", user->password);
 
   userGetString("Digite sua senha: ", password);
 

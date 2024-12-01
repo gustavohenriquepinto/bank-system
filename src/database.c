@@ -23,6 +23,7 @@ bool databaseHasUser(char* email) {
   while (!feof(user_file)) {
     User user;
     fread(&user, sizeof(User), 1, user_file);
+    fread(&(user.account), sizeof(Account), 1, user_file);
     if (utilsCompareIfIsSameString(email, user.email)) return true;
   }
   return false;
@@ -51,8 +52,6 @@ ErrorController databaseInsertUser(User* user) {
   return NO_ERROR;
 }
 
-ErrorController databaseRemoveUser(User* user) { return NO_ERROR; }
-
 ErrorController databaseInsertTransaction(Transaction* transaction) {
   fseek(transaction_list, 0, SEEK_END);
   fwrite(transaction, sizeof(Transaction), 1, transaction_list);
@@ -62,7 +61,7 @@ ErrorController databaseInsertTransaction(Transaction* transaction) {
 
 ErrorController databaseGetAccountByNumber(Number number, Account* account) {
   rewind(user_file);
-  fseek(user_file, 0, SEEK_END);
+  fseek(user_file, 0, SEEK_SET);
   User user;
   while (!feof(user_file)) {
     fread(&user, sizeof(User), 1, user_file);
@@ -72,4 +71,39 @@ ErrorController databaseGetAccountByNumber(Number number, Account* account) {
     }
   }
   return USER_DOENST_EXIST_ERROR;
+}
+
+ErrorController databaseUpdateAccount(Account* account, Money value) {
+  rewind(user_file);
+  fseek(user_file, 0, SEEK_SET);
+  User user;
+  while (!feof(user_file)) {
+    fread(&user, sizeof(User), 1, user_file);
+    if (user.account.number == account->number) {
+      fseek(user_file, -1 * sizeof(User), SEEK_CUR);
+      user.account.balance = value;
+      fwrite(&user, 1, sizeof(User), user_file);
+      return NO_ERROR;
+    }
+  }
+  return USER_DOENST_EXIST_ERROR;
+}
+
+ErrorController databaseAddTransaction(Transaction* transaction) {
+  rewind(transaction_list);
+  fseek(transaction_list, 0, SEEK_END);
+  fwrite(transaction, sizeof(Transaction), 1, transaction_list);
+  return NO_ERROR;
+}
+
+ErrorController databasePrintTransactions() {
+  rewind(transaction_list);
+  fseek(transaction_list, 0, SEEK_SET);
+  Transaction transaction;
+  puts("Transações:");
+  while (!feof(transaction_list)) {
+    fread(&transaction, sizeof(Transaction), 1, transaction_list);
+    puts(transactionText(&transaction));
+  }
+  return NO_ERROR;
 }

@@ -21,4 +21,6 @@ ErrorController transactionPayBill(Account* account, Money value);
 ErrorController transactionPix(Account* origin);
 ErrorController transactionTED(Account* from, Account* to, Money value);
 
+char* transactionText(Transaction* transaction);
+
 #endif

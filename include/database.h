@@ -14,7 +14,10 @@ FILE* databaseGetUserFile();
 ErrorController databaseInsertUser(User* user);
 ErrorController databaseRemoveUser(User* user);
 ErrorController databaseGetUser(char* email, User* user);
-
+ErrorController databaseUpdateAccount(Account* user, Money value);
 ErrorController databaseGetAccountByNumber(Number number, Account* account);
+
+ErrorController databaseAddTransaction(Transaction* transaction);
+ErrorController databasePrintTransactions();
 
 #endif
