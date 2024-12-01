@@ -27,6 +27,7 @@ typedef int PAYMENT_METHOD;
 #define BILLET 1
 #define PIX 2
 
+void utilsMenu();
 void utilsClearTerminal();
 bool utilsCompareIfIsSameString(char*, char*);
 

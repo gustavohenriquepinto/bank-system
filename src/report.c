@@ -1,5 +1,8 @@
 #include "../include/report.h"
 
+#include "../include/database.h"
+#include "../include/user.h"
+
 int times_reported = 0;
 
 // man, vamo tentar rodar o código? ok
@@ -17,18 +20,27 @@ ErrorController reportMenu() {
 
   scanf("%d", &action);
 
-  // if(action >= 0 && action <= 4)
-
-  switch (action) {
-    case -1:
-      return INVALID_ACTION_ERROR;
-    case 0:
-      return NO_ERROR;
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-  }
-
   return NO_ERROR;
+}
+
+void printAllUsers() {
+  int read = 0;
+  FILE* user_file = databaseGetUserFile();
+  fseek(user_file, 0, SEEK_SET);
+
+  utilsClearTerminal();
+  while (!feof(user_file)) {
+    User user;
+    read = fread(&user, sizeof(User), 1, user_file);
+    if (!read) break;
+
+    printf("Conta: %d\n", user.account.number);
+    printf("Nome: %s\n", user.name);
+    printf("Email: %s\n", user.email);
+    printf("Saldo: ");
+    accountPrintMoney(user.account.balance);
+    puts("");
+    puts("----------------------------------------------------");
+  }
+  system("pause");
 }

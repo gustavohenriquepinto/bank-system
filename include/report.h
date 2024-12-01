@@ -3,6 +3,7 @@
 
 #include "utils.h"
 
+void printAllUsers();
 ErrorController reportMenu();
 
 #endif
