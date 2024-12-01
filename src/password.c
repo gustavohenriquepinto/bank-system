@@ -5,14 +5,17 @@
 
 #define KEY 10
 
-void passwordEncrypted(EncryptedPassword text, char* ciphered) {
+void passwordEncrypted(char* password, char* ciphered) {
   int i;
-  for (i = 0; i < strlen(ciphered); i++)
-    ciphered[i] = (((text[i] - 20) + KEY) % 107) + 20;
+
+  for (i = 0; i < strlen(password); i++) {
+    ciphered[i] = (((password[i] - 20) + KEY) % 107) + 20;
+  }
+
   ciphered[i] = '\0';
 }
 
-bool passwordIsCorrect(EncryptedPassword password, char* inputPassword) {
+bool passwordIsCorrect(char* inputPassword, char* password) {
   char encryptedInput[STRING_MAX];
   passwordEncrypted(inputPassword, encryptedInput);
   return utilsCompareIfIsSameString(password, encryptedInput);

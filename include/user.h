@@ -6,13 +6,18 @@
 #include "utils.h"
 
 typedef struct {
-  char* name;
-  char* email;
+  char name[STRING_MAX];
+  char email[STRING_MAX];
+  char password[STRING_MAX];
   Account account;
-  EncryptedPassword password;
 } User;
 
-ErrorController userSignUp(User* user);
-ErrorController userSignIn(User* user);
+void userLogin();
+void userInitialize(User*);
+void userFree(User*);
+
+User* userGet();
+ErrorController userSignIn();
+ErrorController userSignIn();
 
 #endif

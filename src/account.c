@@ -9,6 +9,7 @@ void initializeAccount(Account* account) {
 }
 
 void accountPrint(Account* account) {
+  utilsClearTerminal();
   printf("Conta: %d\n", account->number);
   printf("Saldo: ");
   accountPrintMoney(account->number);
