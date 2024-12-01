@@ -6,7 +6,6 @@
 #include "user.h"
 #include "utils.h"
 
-
 void databaseInitialize();
 int databaseGetAmountOfUsersRegisters();
 bool databaseHasUser(char* email);
@@ -16,5 +15,6 @@ ErrorController databaseInsertUser(User* user);
 ErrorController databaseRemoveUser(User* user);
 ErrorController databaseGetUser(char* email, User* user);
 
+ErrorController databaseGetAccountByNumber(Number number, Account* account);
 
 #endif

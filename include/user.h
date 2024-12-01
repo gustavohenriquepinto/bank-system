@@ -18,5 +18,6 @@ void userInitialize(User*);
 User* userGet();
 ErrorController userSignIn(User* user);
 ErrorController userSignUp(User* user);
+void userGetString(char* message, char* destiny);
 
 #endif

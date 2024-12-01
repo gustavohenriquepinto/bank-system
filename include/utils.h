@@ -23,9 +23,9 @@ typedef int Number;
 typedef long int Money;
 
 typedef int PAYMENT_METHOD;
-#define TED 0
-#define BILLET 1
-#define PIX 2
+#define PIX 0
+#define TED 1
+#define BILL 2
 
 void utilsMenu();
 void utilsClearTerminal();

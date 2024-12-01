@@ -1,6 +1,7 @@
 #ifndef TRANSACTION_H
 #define TRANSACTION_H
 
+#include "database.h"
 #include "date.h"
 #include "user.h"
 #include "utils.h"
@@ -13,11 +14,11 @@ typedef struct {
   Date date;
 } Transaction;
 
-void transactionMenu(Account* account);
+ErrorController transactionMenu(Account* account);
 ErrorController transactionDepositAccount(Account* account, Money value);
 ErrorController transactionWithdrwawAccount(Account* account, Money value);
 ErrorController transactionPayBill(Account* account, Money value);
-ErrorController transactionPix(Account* from, Account* to, Money value);
+ErrorController transactionPix(Account* origin);
 ErrorController transactionTED(Account* from, Account* to, Money value);
 
 #endif

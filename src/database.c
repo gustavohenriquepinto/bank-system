@@ -30,7 +30,7 @@ bool databaseHasUser(char* email) {
 
 ErrorController databaseGetUser(char* email, User* user) {
   rewind(user_file);
-  fseek(user_file, SEEK_SET, 0);
+  fseek(user_file, 0, SEEK_SET);
   while (!feof(user_file)) {
     User user_temp;
     fread(&user_temp, sizeof(User), 1, user_file);
@@ -54,8 +54,22 @@ ErrorController databaseInsertUser(User* user) {
 ErrorController databaseRemoveUser(User* user) { return NO_ERROR; }
 
 ErrorController databaseInsertTransaction(Transaction* transaction) {
-  fseek(transaction_list, SEEK_END, 0);
+  fseek(transaction_list, 0, SEEK_END);
   fwrite(transaction, sizeof(Transaction), 1, transaction_list);
   transaction_size++;
   return NO_ERROR;
+}
+
+ErrorController databaseGetAccountByNumber(Number number, Account* account) {
+  rewind(user_file);
+  fseek(user_file, 0, SEEK_END);
+  User user;
+  while (!feof(user_file)) {
+    fread(&user, sizeof(User), 1, user_file);
+    if (user.account.number == number) {
+      *account = user.account;
+      return NO_ERROR;
+    }
+  }
+  return USER_DOENST_EXIST_ERROR;
 }

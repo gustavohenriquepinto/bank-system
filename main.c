@@ -14,7 +14,7 @@ ErrorController menu(User* user) {
   puts("1. Consultar saldo");
   puts("2. Realizar um depósito");
   puts("3. Realizar um saque");
-  puts("4. Realizar uma transferência");
+  puts("4. Realizar um pagamento");
   puts("5. Gerar um relatório");
 
   scanf("%d", &action);
@@ -59,5 +59,4 @@ ErrorController main(void) {
 
   return NO_ERROR;
 }
-
 // gcc main.c -o main src/*.c -Wall -Iinclude -lcrypto -lm

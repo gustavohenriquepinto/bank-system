@@ -1,13 +1,29 @@
 #include "../include/transaction.h"
 
-void transactionMenu(Account* account) {
+ErrorController transactionMenu(Account* account) {
   PAYMENT_METHOD method;
 
   utilsClearTerminal();
   accountPrint(account);
 
-  puts("Escolhar o metódo de pagamento:");
+  puts("O que você quer fazer?");
+  puts("0. Voltar");
+  puts("1. Transferência via PIX");
+  puts("2. Transferência via TED");
+  puts("3. Pagamento de Boleto");
+
   scanf("%d", &method);
+
+  switch (method) {
+    case 0:
+      return NO_ERROR;
+    case 1:
+      return transactionPix(account);
+    case 2:
+    case 3:
+  }
+
+  return INVALID_ACTION_ERROR;
 }
 
 ErrorController transactionDepositAccount(Account* account, Money value) {
@@ -36,8 +52,22 @@ ErrorController transactionNow(Account* from, Account* to, Money value) {
   return INSUFICCIENT_MONEY_ERROR;
 }
 
-ErrorController transactionPix(Account* from, Account* to, Money value) {
-  return transactionNow(to, from, value);
+ErrorController transactionPix(Account* origin) {
+  int account_number;
+  printf("Número da conta: ");
+  scanf("%d", &account_number);
+
+  Account destiny;
+  databaseGetAccountByNumber(account_number, &destiny);
+
+  ErrorController error;
+  double deposit = 0.0;
+
+  printf("Deseja transferir qual valor?");
+  scanf("%lf", &deposit);
+
+  Money value = (Money)(deposit * 100);
+  return transactionNow(origin, &destiny, value);
 }
 
 ErrorController transactionTED(Account* from, Account* to, Money value) {
