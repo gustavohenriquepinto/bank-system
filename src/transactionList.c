@@ -35,6 +35,7 @@ void eraseList(LIST_Transaction* list, int pos) {
     p->next = erase->next;
   }
   free(erase);
+  list->size--;
 }
 
 void freeList(LIST_Transaction* list) {
