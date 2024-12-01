@@ -6,6 +6,7 @@
 
 ErrorController menu(User* user) {
   int action = -1;
+  // int x;
 
   utilsClearTerminal();
   puts("O que você deseja?");
@@ -19,11 +20,9 @@ ErrorController menu(User* user) {
   scanf("%d", &action);
 
   if (action == 0) return NO_ERROR;
-  if (action == 1) {
-    accountPrintMoney(accountGetBalance(&(user->account)));
-    system("pause");
-  }
-  if (action == 2) accountDepositMenu(&(user->account));
+  if (action == 1) accountPrintBalance(&(user->account));
+  if (action == 2 && accountDepositMenu(&(user->account)) == MONEY_LIMIT_ERROR)
+    return MONEY_LIMIT_ERROR;
   if (action == 3) accountWithdrawalMenu(&(user->account));
   if (action == 4) transactionMenu(&(user->account));
   if (action == 5) reportMenu();
@@ -35,6 +34,8 @@ ErrorController main(void) {
   int action = -1;
   ErrorController valid = NO_ERROR;
   User user;
+
+  userInitialize(&user);
 
   databaseInitialize();
   setlocale(LC_ALL, "Portuguese");

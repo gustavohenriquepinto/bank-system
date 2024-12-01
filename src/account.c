@@ -11,35 +11,46 @@ void initializeAccount(Account* account) {
 void accountPrint(Account* account) {
   utilsClearTerminal();
   printf("Conta: %d\n", account->number);
-  accountPrintMoney(account->number);
+  accountPrintMoney(account->balance);
 }
 
 void accountPrintMoney(Money money) {
   printf("Saldo: ");
-  printf("%2ld", money / 100);
+  printf("%.2f", money / 100.0);
   puts("");
 }
 
 Money accountGetBalance(Account* account) { return account->balance; }
 
-void accountDepositMenu(Account* account) {
+ErrorController accountDepositMenu(Account* account) {
+  ErrorController error;
   double deposit = 0.0;
-  Money balance;
+  Money value;
 
   utilsClearTerminal();
   accountPrint(account);
   printf("Deseja depositar qual valor?");
   scanf("%lf", &deposit);
 
-  balance = (Money)(deposit * 100);
-  transactionDepositAccount(account, balance);
+  value = (Money)(deposit * 100);
+  error = accountIncreaseBalance(account, value);
 
   utilsClearTerminal();
   accountPrint(account);
   puts("Deposito realizado com sucesso");
+  system("pause");
+  return error;
 }
 
-void accountWithdrawalMenu(Account* account) {
+ErrorController accountPrintBalance(Account* account) {
+  int x;
+  utilsClearTerminal();
+  accountPrintMoney(accountGetBalance(account));
+  scanf("%d", &x);
+  return NO_ERROR;
+}
+
+ErrorController accountWithdrawalMenu(Account* account) {
   double deposit = 0.0;
   Money value;
 
@@ -52,13 +63,15 @@ void accountWithdrawalMenu(Account* account) {
 
   if (accountDoesntHasSufficientMoney(account, value)) {
     error(INSUFICCIENT_MONEY_ERROR);
-    return;
+    return INSUFICCIENT_MONEY_ERROR;
   }
 
   transactionWithdrwawAccount(account, value);
   utilsClearTerminal();
   accountPrint(account);
   puts("Saque realizado com sucesso");
+  system("pause");
+  return NO_ERROR;
 }
 
 bool accountDoesntHasSufficientMoney(Account* account, Money value) {

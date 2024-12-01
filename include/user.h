@@ -14,7 +14,6 @@ typedef struct {
 
 void userLogin();
 void userInitialize(User*);
-void userFree(User*);
 
 User* userGet();
 ErrorController userSignIn(User* user);
