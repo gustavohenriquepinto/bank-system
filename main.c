@@ -59,4 +59,4 @@ ErrorController main(void) {
   return NO_ERROR;
 }
 
-// gcc main.c -o main src/*.c -Wall -Iinclude -lcrypto -lm
+// gcc main.c -o main src/*.c -Wall -Iinclude
