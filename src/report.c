@@ -5,11 +5,8 @@
 
 int times_reported = 0;
 
-// man, vamo tentar rodar o código? ok
-// tem acessso ao terminal agr?
-// yes
-
 ErrorController reportMenu() {
+  utilsClearTerminal();
   int action = -1;
   puts("Deseja gerar qual relatório?");
   puts("0. Voltar");

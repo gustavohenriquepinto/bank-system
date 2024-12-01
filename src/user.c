@@ -3,19 +3,15 @@
 #include "../include/database.h"
 #include "../include/password.h"
 
-void userInitialize(User *user) {
-  user->name = malloc(STRING_MAX * sizeof(char));
-  user->email = malloc(STRING_MAX * sizeof(char));
+int serial_account = 1;
+
+void userInitialize(User* user) {
+  user->account.balance = 0;
+  user->account.number = serial_account++;
 }
 
 void userConfigurePassword(User *user, char *password) {
-  passwordEncrypted(&(user->password), password);
-}
-
-void userFree(User *user) {
-  free(user->name);
-  free(user->email);
-  free(user->password);
+  passwordEncrypted(user->password, password);
 }
 
 void userGetString(char *message, char *destiny) {
@@ -30,7 +26,6 @@ ErrorController userSignUp(User *user) {
   char *confirm_password = malloc(STRING_MAX * sizeof(char));
 
   utilsClearTerminal();
-  userInitialize(user);
 
   puts("Vamos criar sua conta");
 

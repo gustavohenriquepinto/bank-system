@@ -17,7 +17,7 @@ void userInitialize(User*);
 void userFree(User*);
 
 User* userGet();
-ErrorController userSignIn();
-ErrorController userSignIn();
+ErrorController userSignIn(User* user);
+ErrorController userSignUp(User* user);
 
 #endif

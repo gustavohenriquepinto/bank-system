@@ -31,7 +31,7 @@ void error(int errorCode) {
       break;
   }
 
-  puts("Voce sera redirecionado para a tela de login novamente:");
+  puts("Ocorreu algum erro. Aperte qualquer tecla para encerrar a aplicação:");
   system("pause");
-  userLogin();
+  exit(1);
 }
