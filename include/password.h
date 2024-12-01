@@ -3,7 +3,7 @@
 
 #include "utils.h"
 
-void passwordEncrypted(char*, char*);
-bool passwordIsCorrect(char*, char*);
+void passwordEncrypted(char* input, char* password);
+bool passwordIsCorrect(char* input, char* password);
 
 #endif

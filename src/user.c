@@ -5,13 +5,9 @@
 
 int serial_account = 1;
 
-void userInitialize(User* user) {
+void userInitialize(User *user) {
   user->account.balance = 0;
   user->account.number = serial_account++;
-}
-
-void userConfigurePassword(User *user, char *password) {
-  passwordEncrypted(user->password, password);
 }
 
 void userGetString(char *message, char *destiny) {
@@ -22,8 +18,8 @@ void userGetString(char *message, char *destiny) {
 }
 
 ErrorController userSignUp(User *user) {
-  char *password = malloc(STRING_MAX * sizeof(char));
-  char *confirm_password = malloc(STRING_MAX * sizeof(char));
+  char password[STRING_MAX];
+  char confirm_password[STRING_MAX];
 
   utilsClearTerminal();
 
@@ -35,17 +31,12 @@ ErrorController userSignUp(User *user) {
   userGetString("Confirme sua senha: ", confirm_password);
 
   if (!utilsCompareIfIsSameString(password, confirm_password)) {
-    free(password);
-    free(confirm_password);
     error(DIFFERENT_PASSWORDS_ERROR);
     return DIFFERENT_PASSWORDS_ERROR;
   }
 
-  userConfigurePassword(user, password);
+  passwordEncrypted(password, user->password);
   databaseInsertUser(user);
-
-  free(password);
-  free(confirm_password);
 
   return NO_ERROR;
 }
@@ -59,10 +50,13 @@ ErrorController userSignIn(User *user) {
   if (!databaseHasUser(email)) return USER_DOENST_EXIST_ERROR;
 
   databaseGetUser(email, user);
+  printf("Usuário = %s\n", user->name);
+  printf("Email = %s\n", user->email);
+  printf("Senha = %s\n", user->password);
 
   userGetString("Digite sua senha: ", password);
 
-  if (!passwordIsCorrect(user->password, password))
+  if (!passwordIsCorrect(password, user->password))
     return INCORRECT_PASSWORD_ERROR;
 
   return NO_ERROR;

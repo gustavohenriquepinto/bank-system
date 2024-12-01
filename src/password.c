@@ -3,20 +3,20 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define KEY 10
+#define KEY 839420
 
-void passwordEncrypted(char* password, char* ciphered) {
-  int i;
-
-  for (i = 0; i < strlen(password); i++) {
-    ciphered[i] = (((password[i] - 20) + KEY) % 107) + 20;
-  }
-
-  ciphered[i] = '\0';
+void passwordEncrypted(char* input, char* password) {
+  int i = 0;
+  for (; input[i] != '\0'; i++) password[i] = ((input[i] + KEY) % 107) + 20;
+  password[i] = '\0';
 }
 
-bool passwordIsCorrect(char* inputPassword, char* password) {
+bool passwordIsCorrect(char* input, char* password) {
   char encryptedInput[STRING_MAX];
-  passwordEncrypted(inputPassword, encryptedInput);
+  passwordEncrypted(input, encryptedInput);
+
+  // printf("Encrypted Input: %s\n", encryptedInput);
+  // printf("Password Stored: %s\n", password);
+
   return utilsCompareIfIsSameString(password, encryptedInput);
 }
