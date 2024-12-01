@@ -22,56 +22,48 @@ void accountPrintMoney(Money money) {
 
 Money accountGetBalance(Account* account) { return account->balance; }
 
-ErrorController accountDepositMenu(Account* account) {
-  ErrorController error;
+void accountDepositMenu(Account* account) {
+  ErrorController err;
   double deposit = 0.0;
   Money value;
 
   utilsClearTerminal();
   accountPrint(account);
-  printf("Deseja depositar qual valor?");
+  puts("Deseja depositar qual valor?");
   scanf("%lf", &deposit);
 
   value = (Money)(deposit * 100);
-  error = accountIncreaseBalance(account, value);
+  err = accountIncreaseBalance(account, value);
+  if (err != NO_ERROR) return error(err, MAIN_MENU);
 
-  utilsClearTerminal();
   accountPrint(account);
   puts("Deposito realizado com sucesso");
-  system("pause");
-  return error;
+  error(NO_ERROR, MAIN_MENU);
 }
 
-ErrorController accountPrintBalance(Account* account) {
-  int x;
-  utilsClearTerminal();
-  accountPrintMoney(accountGetBalance(account));
-  scanf("%d", &x);
-  return NO_ERROR;
-}
-
-ErrorController accountWithdrawalMenu(Account* account) {
+void accountWithdrawalMenu(Account* account) {
+  Transaction transaction;
   double deposit = 0.0;
   Money value;
 
   utilsClearTerminal();
   accountPrint(account);
-  printf("Deseja sacar qual valor?");
+  puts("Deseja sacar qual valor?");
   scanf("%lf", &deposit);
 
-  value = (Money)(deposit * 100);
+  //,precisamos pensar em um destinatario null
 
-  if (accountDoesntHasSufficientMoney(account, value)) {
-    error(INSUFICCIENT_MONEY_ERROR);
-    return INSUFICCIENT_MONEY_ERROR;
-  }
+  value = (Money)(deposit * 100);
+  transaction.origin = *userGet();
+  transaction.value = value;
+
+  if (accountDoesntHasSufficientMoney(account, value))
+    return error(INSUFICCIENT_MONEY_ERROR, MAIN_MENU);
 
   transactionWithdrwawAccount(account, value);
-  utilsClearTerminal();
   accountPrint(account);
   puts("Saque realizado com sucesso");
-  system("pause");
-  return NO_ERROR;
+  error(NO_ERROR, MAIN_MENU);
 }
 
 bool accountDoesntHasSufficientMoney(Account* account, Money value) {
@@ -86,12 +78,12 @@ bool accountWouldPassLimit(Account* account, Money value) {
 ErrorController accountIncreaseBalance(Account* account, Money value) {
   if (accountWouldPassLimit(account, value)) return MONEY_LIMIT_ERROR;
   account->balance += value;
-  return NO_ERROR;
+  return databaseUpdateUser(userGet());
 }
 
 ErrorController accountDecreaseBalance(Account* account, Money value) {
   if (accountDoesntHasSufficientMoney(account, value))
     return INSUFICCIENT_MONEY_ERROR;
   account->balance -= value;
-  return NO_ERROR;
+  return databaseUpdateUser(userGet());
 }

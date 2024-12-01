@@ -28,6 +28,22 @@ bool databaseHasUser(char* email) {
   return false;
 }
 
+ErrorController databaseUpdateUser(User* user) {
+  rewind(user_file);
+  int index = 0;
+
+  while (!feof(user_file)) {
+    User user_temp;
+    fread(&user_temp, sizeof(User), 1, user_file);
+    if (user->account.number == user_temp.account.number) break;
+    index++;
+  }
+
+  fseek(user_file, -index * sizeof(User), SEEK_SET);
+  fwrite(user, sizeof(User), 1, user_file);
+  return NO_ERROR;
+}
+
 ErrorController databaseGetUser(char* email, User* user) {
   rewind(user_file);
   fseek(user_file, 0, SEEK_SET);
@@ -36,6 +52,7 @@ ErrorController databaseGetUser(char* email, User* user) {
     fread(&user_temp, sizeof(User), 1, user_file);
     if (utilsCompareIfIsSameString(email, user_temp.email)) {
       *user = user_temp;
+      user->account = user_temp.account;
       return NO_ERROR;
     }
   }
@@ -51,8 +68,6 @@ ErrorController databaseInsertUser(User* user) {
   return NO_ERROR;
 }
 
-ErrorController databaseRemoveUser(User* user) { return NO_ERROR; }
-
 ErrorController databaseInsertTransaction(Transaction* transaction) {
   fseek(transaction_list, 0, SEEK_END);
   fwrite(transaction, sizeof(Transaction), 1, transaction_list);
@@ -60,14 +75,13 @@ ErrorController databaseInsertTransaction(Transaction* transaction) {
   return NO_ERROR;
 }
 
-ErrorController databaseGetAccountByNumber(Number number, Account* account) {
-  rewind(user_file);
-  fseek(user_file, 0, SEEK_END);
-  User user;
+ErrorController databaseGetUserByAccountNumber(Number number, User* user) {
+  fseek(user_file, 0, SEEK_SET);
+  User temp_user;
   while (!feof(user_file)) {
-    fread(&user, sizeof(User), 1, user_file);
-    if (user.account.number == number) {
-      *account = user.account;
+    fread(&temp_user, sizeof(User), 1, user_file);
+    if (user->account.number == number) {
+      *user = temp_user;
       return NO_ERROR;
     }
   }

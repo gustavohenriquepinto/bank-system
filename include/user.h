@@ -1,6 +1,8 @@
 #ifndef USER_H
 #define USER_H
 
+// vou testar agora
+
 #include "account.h"
 #include "password.h"
 #include "utils.h"
@@ -12,12 +14,12 @@ typedef struct {
   Account account;
 } User;
 
+User* userGet();
+
 void userLogin();
 void userInitialize(User*);
-
-User* userGet();
-ErrorController userSignIn(User* user);
-ErrorController userSignUp(User* user);
+void userSignIn(User* user);
+void userSignUp(User* user);
 void userGetString(char* message, char* destiny);
 
 #endif

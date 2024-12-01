@@ -4,6 +4,6 @@
 #include "utils.h"
 
 void printAllUsers();
-ErrorController reportMenu();
+void reportMenu();
 
 #endif

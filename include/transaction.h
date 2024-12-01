@@ -14,11 +14,6 @@ typedef struct {
   Date date;
 } Transaction;
 
-ErrorController transactionMenu(Account* account);
-ErrorController transactionDepositAccount(Account* account, Money value);
-ErrorController transactionWithdrwawAccount(Account* account, Money value);
-ErrorController transactionPayBill(Account* account, Money value);
-ErrorController transactionPix(Account* origin);
-ErrorController transactionTED(Account* from, Account* to, Money value);
+void transactionMenu();
 
 #endif

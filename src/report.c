@@ -5,19 +5,22 @@
 
 int times_reported = 0;
 
-ErrorController reportMenu() {
+void reportMenu() {
   utilsClearTerminal();
   int action = -1;
   puts("Deseja gerar qual relatório?");
   puts("0. Voltar");
+  puts("1. Extrato geral");
   puts("1. Saques/Depositos");
-  puts("2. Extrato bancario");
+  puts("2. Transfências");
   puts("3. Receitas");
   puts("4. Despesas");
 
   scanf("%d", &action);
+  if (action == 0) error(NO_ERROR, MAIN_MENU);
 
-  return NO_ERROR;
+  // pendente
+  error(NO_ERROR, REPORT_MENU);
 }
 
 void printAllUsers() {
@@ -36,7 +39,6 @@ void printAllUsers() {
     printf("Email: %s\n", user.email);
     printf("Saldo: ");
     accountPrintMoney(user.account.balance);
-    puts("");
     puts("----------------------------------------------------");
   }
   system("pause");
