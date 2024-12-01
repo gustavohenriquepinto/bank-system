@@ -60,7 +60,6 @@ ErrorController transactionPix(Account* origin) {
   Account destiny;
   databaseGetAccountByNumber(account_number, &destiny);
 
-  ErrorController error;
   double deposit = 0.0;
 
   printf("Deseja transferir qual valor?");
