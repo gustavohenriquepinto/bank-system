@@ -26,6 +26,8 @@ void transactionMenu() {
   if (transaction.method < 1 || transaction.method > 3)
     return error(INVALID_ACTION_ERROR, TRANSACTION_MENU);
 
+  // cobrança ted
+
   if (transaction.method == 3)
     account_number = BANK_ACCOUNT;
   else {
