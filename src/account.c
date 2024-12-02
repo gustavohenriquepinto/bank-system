@@ -22,69 +22,51 @@ void accountPrintMoney(Money money) {
 
 Money accountGetBalance(Account* account) { return account->balance; }
 
-ErrorController accountDepositMenu(Account* account) {
-  ErrorController error;
+void accountDepositMenu() {
+  User* user = userGet();
+  ErrorController err;
   double deposit = 0.0;
   Money value;
 
   utilsClearTerminal();
-  accountPrint(account);
-  printf("Deseja depositar qual valor?");
+  accountPrint(&(user->account));
+  puts("Deseja depositar qual valor?");
   scanf("%lf", &deposit);
 
   value = (Money)(deposit * 100);
-  error = accountIncreaseBalance(account, value);
+  err = transactionDeposit(user, value);
+  if (err != NO_ERROR) return error(err, MAIN_MENU);
 
-  utilsClearTerminal();
-  accountPrint(account);
+  accountPrint(&(user->account));
   puts("Deposito realizado com sucesso");
-  system("pause");
-  return error;
+  error(NO_ERROR, MAIN_MENU);
 }
 
-ErrorController accountPrintBalance(Account* account) {
-  int x;
-  utilsClearTerminal();
-  accountPrintMoney(accountGetBalance(account));
-  scanf("%d", &x);
-  return NO_ERROR;
-}
-
-ErrorController accountWithdrawalMenu(Account* account) {
+void accountWithdrawalMenu() {
+  User* user = userGet();
+  ErrorController err;
   double deposit = 0.0;
   Money value;
 
   utilsClearTerminal();
-  accountPrint(account);
-  printf("Deseja sacar qual valor?");
+  accountPrint(&(user->account));
+  puts("Deseja sacar qual valor?");
   scanf("%lf", &deposit);
 
   value = (Money)(deposit * 100);
+  err = transactionWithdrwaw(userGet(), value);
+  if (err != NO_ERROR) return error(err, MAIN_MENU);
 
-  if (accountDoesntHasSufficientMoney(account, value)) {
-    error(INSUFICCIENT_MONEY_ERROR);
-    return INSUFICCIENT_MONEY_ERROR;
-  }
-
-  transactionWithdrwawAccount(account, value);
-  utilsClearTerminal();
-  accountPrint(account);
+  accountPrint(&(user->account));
   puts("Saque realizado com sucesso");
-  system("pause");
-  return NO_ERROR;
+  error(NO_ERROR, MAIN_MENU);
 }
 
 bool accountDoesntHasSufficientMoney(Account* account, Money value) {
   return account->balance <= value;
 }
 
-bool accountWouldPassLimit(Account* account, Money value) {
-  const Money sum = account->balance + value;
-  return sum < account->balance || sum < value;  // Verifica se houve overflow
-}
-
 ErrorController accountIncreaseBalance(Account* account, Money value) {
-  if (accountWouldPassLimit(account, value)) return MONEY_LIMIT_ERROR;
   account->balance += value;
   databaseUpdateAccount(account, account->balance);
   return NO_ERROR;

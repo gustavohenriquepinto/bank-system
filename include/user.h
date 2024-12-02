@@ -5,6 +5,8 @@
 #include "password.h"
 #include "utils.h"
 
+#define BANK_ACCOUNT 0
+
 typedef struct {
   char name[STRING_MAX];
   char email[STRING_MAX];
@@ -12,12 +14,12 @@ typedef struct {
   Account account;
 } User;
 
+User* userGet();
+
 void userLogin();
 void userInitialize(User*);
-
-User* userGet();
-ErrorController userSignIn(User* user);
-ErrorController userSignUp(User* user);
+void userSignIn();
+void userSignUp();
 void userGetString(char* message, char* destiny);
 
 #endif

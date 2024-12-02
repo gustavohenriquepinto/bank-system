@@ -14,6 +14,5 @@ void passwordEncrypted(char* input, char* password) {
 bool passwordIsCorrect(char* input, char* password) {
   char encryptedInput[STRING_MAX];
   passwordEncrypted(input, encryptedInput);
-
   return utilsCompareIfIsSameString(password, encryptedInput);
 }

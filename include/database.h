@@ -11,13 +11,15 @@ int databaseGetAmountOfUsersRegisters();
 bool databaseHasUser(char* email);
 
 FILE* databaseGetUserFile();
-ErrorController databaseInsertUser(User* user);
-ErrorController databaseRemoveUser(User* user);
-ErrorController databaseGetUser(char* email, User* user);
-ErrorController databaseUpdateAccount(Account* user, Money value);
-ErrorController databaseGetAccountByNumber(Number number, Account* account);
+FILE* databaseGetTransactionFile();
 
-ErrorController databaseAddTransaction(Transaction* transaction);
-ErrorController databasePrintTransactions();
+ErrorController databaseInsertUser(User*);
+ErrorController databaseUpdateUser(User*);
+ErrorController databaseRemoveUser(User*);
+ErrorController databaseGetUser(char* email, User*);
+ErrorController databaseGetUserByAccountNumber(Number account_number, User*);
+
+ErrorController databaseInsertTransaction(Transaction*);
+ErrorController databaseGetUserTransactions(User* user, LIST_Transaction* list);
 
 #endif

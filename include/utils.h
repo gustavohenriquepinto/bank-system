@@ -10,6 +10,7 @@
 
 #include "errors.h"
 
+typedef int SortMode;
 #define DATE_ASCENDING_SORT 0
 #define DATE_DESCENDING_SORT 1
 #define VALUE_ASCENDING_SORT 2
@@ -18,14 +19,16 @@
 #define STRING_MAX 256
 #define STRING_READ "%255s"
 
-typedef char SortMode;
 typedef int Number;
 typedef long int Money;
 
 typedef int PAYMENT_METHOD;
-#define PIX 0
-#define TED 1
-#define BILL 2
+#define ALL 0
+#define PIX 1
+#define TED 2
+#define BILLET 3
+#define DEPOSIT 4
+#define WITHDRAWAL 5
 
 void utilsMenu();
 void utilsClearTerminal();

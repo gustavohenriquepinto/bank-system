@@ -5,6 +5,12 @@ typedef int ErrorController;
 
 #define NO_ERROR 0
 #define LOGOUT 1
+#define HOME 2
+#define SIGN_UP 3
+#define SIGN_IN 4
+#define MAIN_MENU 5
+#define TRANSACTION_MENU 6
+#define REPORT_MENU 7
 
 // Erros Globais
 #define INPUT_ERROR 101
@@ -25,6 +31,6 @@ typedef int ErrorController;
 #define INVALID_MONTH_ERROR 402
 #define INVALID_YEAR_ERROR 403
 
-void error(int);
+void error(int, int);
 
 #endif
