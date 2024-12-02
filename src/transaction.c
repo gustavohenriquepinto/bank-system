@@ -1,78 +1,108 @@
 #include "../include/transaction.h"
 
-ErrorController transactionMenu(Account* account) {
-  PAYMENT_METHOD method;
+#include "../include/database.h"
+#include "../include/date.h"
 
-  utilsClearTerminal();
-  accountPrint(account);
+#define TED_TAX (Money)1000
 
+void transactionMenu() {
+  Transaction transaction;
+  ErrorController err;
+  int account_number;
+  double transferValue = 0.0;
+
+  transaction.date = now();
+  transaction.origin = *userGet();
+
+  accountPrint(&transaction.origin.account);
   puts("O que você quer fazer?");
   puts("0. Voltar");
   puts("1. Transferência via PIX");
   puts("2. Transferência via TED");
   puts("3. Pagamento de Boleto");
 
-  scanf("%d", &method);
+  scanf("%d", &transaction.method);
+  if (transaction.method == 0) return error(NO_ERROR, MAIN_MENU);
+  if (transaction.method < 1 || transaction.method > 3)
+    return error(INVALID_ACTION_ERROR, TRANSACTION_MENU);
 
-  switch (method) {
-    case 0:
-      return NO_ERROR;
-    case 1:
-      return transactionPix(account);
-    case 2:
-    case 3:
+  // cobrança ted
+
+  if (transaction.method == 3)
+    account_number = BANK_ACCOUNT;
+  else {
+    utilsClearTerminal();
+    puts("Número da conta: ");
+    scanf("%d", &account_number);
   }
 
-  return INVALID_ACTION_ERROR;
+  err = databaseGetUserByAccountNumber(account_number, &transaction.destiny);
+  if (err != NO_ERROR) return error(err, TRANSACTION_MENU);
+
+  puts("Deseja transferir qual valor?");
+  scanf("%lf", &transferValue);
+
+  Money value = (Money)(transferValue * 100);
+  if (accountDoesntHasSufficientMoney(&transaction.origin.account, value))
+    return error(INSUFICCIENT_MONEY_ERROR, TRANSACTION_MENU);
+
+  accountDecreaseBalance(&transaction.origin.account, value);
+  accountIncreaseBalance(&transaction.destiny.account, value);
+
+  databaseUpdateUser(&transaction.origin);
+  databaseUpdateUser(&transaction.destiny);
+
+  transaction.value = value;
+  databaseInsertTransaction(&transaction);
+
+  accountPrint(&transaction.origin.account);
+  puts("Transação finalizada");
+  error(NO_ERROR, MAIN_MENU);
 }
 
-ErrorController transactionDepositAccount(Account* account, Money value) {
-  return accountIncreaseBalance(account, value);
-}
+ErrorController transactionDeposit(User* user, Money value) {
+  ErrorController err;
+  Transaction transaction;
+  transaction.date = now();
+  transaction.destiny = *user;
+  transaction.value = value;
+  transaction.method = DEPOSIT;
 
-ErrorController transactionWithdrwawAccount(Account* account, Money value) {
-  return accountDecreaseBalance(account, value);
-}
+  err = databaseGetUserByAccountNumber(BANK_ACCOUNT, &transaction.origin);
+  if (err != NO_ERROR) return err;
 
-ErrorController transactionPayBill(Account* account, Money value) {
-  // if (accountDecreaseBalance(account, value) == INSUFICCIENT_MONEY_ERROR)
-  //   return INSUFICCIENT_MONEY_ERROR;
-  // Agendado para dois dias
+  err = accountIncreaseBalance(&(user->account), value);
+  if (err != NO_ERROR) return err;
+
+  err = databaseInsertTransaction(&transaction);
+  if (err != NO_ERROR) return err;
+
+  err = databaseUpdateUser(user);
+  if (err != NO_ERROR) return err;
+
   return NO_ERROR;
 }
 
-ErrorController transactionNow(Account* from, Account* to, Money value) {
-  if (accountDecreaseBalance(from, value) == NO_ERROR) {
-    if (accountIncreaseBalance(to, value) != NO_ERROR) {
-      accountIncreaseBalance(from, value);
-      return MONEY_LIMIT_ERROR;
-    } else
-      return NO_ERROR;
-  }
-  return INSUFICCIENT_MONEY_ERROR;
-}
+ErrorController transactionWithdrwaw(User* user, Money value) {
+  ErrorController err;
+  Transaction transaction;
+  transaction.date = now();
+  transaction.origin = *user;
+  transaction.value = value;
+  transaction.method = WITHDRAWAL;
 
-ErrorController transactionPix(Account* origin) {
-  int account_number;
-  printf("Número da conta: ");
-  scanf("%d", &account_number);
+  err = databaseGetUserByAccountNumber(BANK_ACCOUNT, &transaction.destiny);
+  if (err != NO_ERROR) return err;
 
-  Account destiny;
-  databaseGetAccountByNumber(account_number, &destiny);
+  err = accountDecreaseBalance(&(user->account), value);
+  if (err != NO_ERROR) return err;
 
-  double deposit = 0.0;
+  err = databaseInsertTransaction(&transaction);
+  if (err != NO_ERROR) return err;
 
-  printf("Deseja transferir qual valor?");
-  scanf("%lf", &deposit);
+  err = databaseUpdateUser(user);
+  if (err != NO_ERROR) return err;
 
-  Money value = (Money)(deposit * 100);
-  return transactionNow(origin, &destiny, value);
-}
-
-ErrorController transactionTED(Account* from, Account* to, Money value) {
-  // if (accountDecreaseBalance(from, value) == INSUFICCIENT_MONEY_ERROR)
-  //   return INSUFICCIENT_MONEY_ERROR;
-  // Agendada para dois dias
   return NO_ERROR;
 }
 

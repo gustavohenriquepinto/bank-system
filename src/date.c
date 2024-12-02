@@ -1,5 +1,9 @@
 #include "../include/date.h"
 
+#include <time.h>
+
+#include "../include/utils.h"
+
 #define BASE_DAY 1
 #define BASE_MONTH 1
 #define BASE_YEAR 1900
@@ -35,23 +39,35 @@ Date newDate(int day, int month, int year) {
   return convertIntegersToDate(day, month, year);
 }
 
-char* dateToText(Date date) {
-  int year = BASE_YEAR;
-  int remainingDays = date;
-  for (; year < BASE_YEAR + 3000 && remainingDays >= 365; year++) {
-    remainingDays -= isLeapYear(year) ? 366 : 365;
-  }
+Date now() {
+  time_t t = time(NULL);
+  struct tm* tm_info = localtime(&t);
+  int day = tm_info->tm_mday;
+  int month = tm_info->tm_mon + 1;     // tm_mon começa em 0
+  int year = tm_info->tm_year + 1900;  // tm_year conta a partir de 1900
 
-  int month = 1;
-  for (; month <= 12 && remainingDays >= daysInMonth(month, year); month++) {
-    remainingDays -= daysInMonth(month, year);
-  }
-
-  int day = remainingDays + 1;
-
-  char result[11];
-  sprintf(result, "%02d/%02d/%04d", day, month, year);
-  return result;
+  return newDate(day, month, year);
 }
 
-bool firstIsMoreRecent(Date date1, Date date2) { return date1 >= date2; }
+char* dateText(Date date) {
+  char* result = malloc(11 * sizeof(char));
+  int year = BASE_YEAR;
+  int month = BASE_MONTH;
+  int day = BASE_DAY;
+
+  while (date >= (isLeapYear(year) ? 366 : 365)) {
+    date -= isLeapYear(year) ? 366 : 365;
+    year++;
+  }
+
+  while (date >= daysInMonth(month, year)) {
+    date -= daysInMonth(month, year);
+    month++;
+  }
+
+  day += date;
+
+  sprintf(result, "%02d/%02d/%04d", day, month, year);
+
+  return result;
+}
