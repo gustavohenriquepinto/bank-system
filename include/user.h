@@ -1,11 +1,11 @@
 #ifndef USER_H
 #define USER_H
 
-// vou testar agora
-
 #include "account.h"
 #include "password.h"
 #include "utils.h"
+
+#define BANK_ACCOUNT 0
 
 typedef struct {
   char name[STRING_MAX];
@@ -18,8 +18,8 @@ User* userGet();
 
 void userLogin();
 void userInitialize(User*);
-void userSignIn(User* user);
-void userSignUp(User* user);
+void userSignIn();
+void userSignUp();
 void userGetString(char* message, char* destiny);
 
 #endif

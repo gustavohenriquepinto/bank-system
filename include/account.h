@@ -14,8 +14,8 @@ typedef struct {
 void initializeAccount(Account*);
 void accountPrint(Account*);
 void accountPrintMoney(Money);
-void accountDepositMenu(Account*);
-void accountWithdrawalMenu(Account*);
+void accountDepositMenu();
+void accountWithdrawalMenu();
 
 bool accountDoesntHasSufficientMoney(Account*, Money);
 

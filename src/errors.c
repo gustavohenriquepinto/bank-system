@@ -27,6 +27,10 @@ void error(int errorCode, int to) {
       puts("Senha de confirmação diferente.");
       break;
 
+    case INSUFICCIENT_MONEY_ERROR:
+      puts("Saldo insuficiente.");
+      break;
+
     default:
       break;
   }

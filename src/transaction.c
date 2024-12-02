@@ -1,14 +1,17 @@
 #include "../include/transaction.h"
 
+#include "../include/database.h"
+#include "../include/date.h"
+
 #define TED_TAX (Money)1000
 
 void transactionMenu() {
   Transaction transaction;
-  User destiny;
   ErrorController err;
   int account_number;
   double transferValue = 0.0;
 
+  transaction.date = now();
   transaction.origin = *userGet();
 
   accountPrint(&transaction.origin.account);
@@ -23,13 +26,18 @@ void transactionMenu() {
   if (transaction.method < 1 || transaction.method > 3)
     return error(INVALID_ACTION_ERROR, TRANSACTION_MENU);
 
-  printf("Número da conta: ");
-  scanf("%d", &account_number);
+  if (transaction.method == 3)
+    account_number = BANK_ACCOUNT;
+  else {
+    utilsClearTerminal();
+    puts("Número da conta: ");
+    scanf("%d", &account_number);
+  }
 
   err = databaseGetUserByAccountNumber(account_number, &transaction.destiny);
   if (err != NO_ERROR) return error(err, TRANSACTION_MENU);
 
-  printf("Deseja transferir qual valor?");
+  puts("Deseja transferir qual valor?");
   scanf("%lf", &transferValue);
 
   Money value = (Money)(transferValue * 100);
@@ -38,8 +46,60 @@ void transactionMenu() {
 
   accountDecreaseBalance(&transaction.origin.account, value);
   accountIncreaseBalance(&transaction.destiny.account, value);
-  databaseUpdateUser(userGet());
+
+  databaseUpdateUser(&transaction.origin);
   databaseUpdateUser(&transaction.destiny);
 
-  databaseInsertTransaction(transaction);
+  transaction.value = value;
+  databaseInsertTransaction(&transaction);
+
+  accountPrint(&transaction.origin.account);
+  puts("Transação finalizada");
+  error(NO_ERROR, MAIN_MENU);
+}
+
+ErrorController transactionDeposit(User* user, Money value) {
+  ErrorController err;
+  Transaction transaction;
+  transaction.date = now();
+  transaction.destiny = *user;
+  transaction.value = value;
+  transaction.method = DEPOSIT;
+
+  err = databaseGetUserByAccountNumber(BANK_ACCOUNT, &transaction.origin);
+  if (err != NO_ERROR) return err;
+
+  err = accountIncreaseBalance(&(user->account), value);
+  if (err != NO_ERROR) return err;
+
+  err = databaseInsertTransaction(&transaction);
+  if (err != NO_ERROR) return err;
+
+  err = databaseUpdateUser(user);
+  if (err != NO_ERROR) return err;
+
+  return NO_ERROR;
+}
+
+ErrorController transactionWithdrwaw(User* user, Money value) {
+  ErrorController err;
+  Transaction transaction;
+  transaction.date = now();
+  transaction.origin = *user;
+  transaction.value = value;
+  transaction.method = WITHDRAWAL;
+
+  err = databaseGetUserByAccountNumber(BANK_ACCOUNT, &transaction.destiny);
+  if (err != NO_ERROR) return err;
+
+  err = accountDecreaseBalance(&(user->account), value);
+  if (err != NO_ERROR) return err;
+
+  err = databaseInsertTransaction(&transaction);
+  if (err != NO_ERROR) return err;
+
+  err = databaseUpdateUser(user);
+  if (err != NO_ERROR) return err;
+
+  return NO_ERROR;
 }

@@ -10,7 +10,7 @@ User *userGet() { return &user; };
 
 void userInitialize(User *user) {
   user->account.balance = 0;
-  user->account.number = databaseGetAmountOfUsersRegisters() + 1;
+  user->account.number = databaseGetAmountOfUsersRegisters();
 }
 
 void userGetString(char *message, char *destiny) {
@@ -20,14 +20,14 @@ void userGetString(char *message, char *destiny) {
   fflush(stdin);
 }
 
-void userSignUp(User *user) {
+void userSignUp() {
   char password[STRING_MAX];
   char confirm_password[STRING_MAX];
 
   utilsClearTerminal();
   puts("Vamos criar sua conta");
-  userGetString("Digite seu nome: ", user->name);
-  userGetString("Digite seu email: ", user->email);
+  userGetString("Digite seu nome: ", user.name);
+  userGetString("Digite seu email: ", user.email);
   userGetString("Digite sua senha: ", password);
   userGetString("Confirme sua senha: ", confirm_password);
 
@@ -35,21 +35,21 @@ void userSignUp(User *user) {
     return error(DIFFERENT_PASSWORDS_ERROR, SIGN_UP);
   }
 
-  passwordEncrypted(password, user->password);
-  databaseInsertUser(user);
+  passwordEncrypted(password, user.password);
+  databaseInsertUser(&user);
 }
 
-void userSignIn(User *user) {
+void userSignIn() {
   char email[STRING_MAX];
   char password[STRING_MAX];
 
   utilsClearTerminal();
   userGetString("Digite seu email: ", email);
-  if (databaseGetUser(email, user) != NO_ERROR)
+  if (databaseGetUser(email, &user) != NO_ERROR)
     return error(USER_DOENST_EXIST_ERROR, SIGN_IN);
 
   userGetString("Digite sua senha: ", password);
-  if (!passwordIsCorrect(password, user->password))
+  if (!passwordIsCorrect(password, user.password))
     return error(INCORRECT_PASSWORD_ERROR, SIGN_IN);
 }
 
@@ -66,9 +66,10 @@ void userLogin() {
     scanf("%d", &action);
 
     if (action == 0) exit(EXIT_SUCCESS);
-    if (action == 1) userSignIn(&user);
-    if (action == 2) userSignUp(&user);
+    if (action == 1) userSignIn();
+    if (action == 2) userSignUp();
     if (action == 3) printAllUsers();
+    if (action == 4) printAllTransactions();
   }
 
   utilsMenu();
