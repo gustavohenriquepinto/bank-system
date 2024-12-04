@@ -3,6 +3,7 @@
 ![image](https://github.com/user-attachments/assets/e087660e-2fd2-4521-a215-ce50db94c61f)
 
 
+
 ## Implementação
 - Linguagem C
 - Dinheiro em números inteiros
@@ -34,9 +35,9 @@ NomeDaEstrutura (pascal case) //structs<br />
 - Histórico de transferências (filtros)
 - Emissão de extratos, com a possibilidade de utilizar filtros ou ordenação
 - Filtros
-- - Data/Período
-- - Valor
-- - Tipo
+  - Data
+  - Valor
+  - Tipo
 
 ### Segurança e Privacidade
 - Autenticação de Usuários
