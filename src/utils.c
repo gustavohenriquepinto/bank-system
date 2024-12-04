@@ -29,7 +29,6 @@ void utilsMenu() {
   if (action == 4) transactionMenu(&(user->account));
   if (action == 5) reportMenu(&(user->account));
 
-  puts("Aperte enter para retornar ao menu");
   utilsPause();
   utilsMenu();
 }
@@ -42,7 +41,7 @@ void utilsClearTerminal() {
 void utilsPause() {
   char action;
   fflush(stdin);
-  puts("Pressione qualquer tecla para continuar");
+  puts("Pressione qualquer tecla para continuar:");
   scanf("%c", &action);
   fflush(stdin);
 }
