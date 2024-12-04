@@ -34,7 +34,7 @@ void utilsMenu() {
 }
 
 void utilsClearTerminal() {
-  system("cls");
+  // system("cls");
   system("clear");
 }
 
