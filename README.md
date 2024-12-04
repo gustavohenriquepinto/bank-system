@@ -2,6 +2,7 @@
 
 ![image](https://github.com/user-attachments/assets/e087660e-2fd2-4521-a215-ce50db94c61f)
 
+![Recording 2024-12-04 at 06 51 06](https://github.com/user-attachments/assets/004f83dd-dc0d-4ecb-bee8-521d13ad160a)
 
 
 ## Implementação
