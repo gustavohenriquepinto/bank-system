@@ -25,6 +25,8 @@ typedef int ErrorController;
 // Erros em Transações
 #define INSUFICCIENT_MONEY_ERROR 301
 #define MONEY_LIMIT_ERROR 302
+#define NEGATIVE_NUMBER_ERROR 303
+#define ENTER_ANOTHER_ACCOUNT_NUMBER 304
 
 // Erros em Estruturas Auxiliares
 #define INVALID_DAY_ERROR 401

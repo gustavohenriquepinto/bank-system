@@ -31,6 +31,7 @@ typedef int PAYMENT_METHOD;
 #define WITHDRAWAL 5
 
 void utilsMenu();
+void utilsPause();
 void utilsClearTerminal();
 bool utilsCompareIfIsSameString(char*, char*);
 

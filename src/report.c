@@ -3,26 +3,13 @@
 #include "../include/database.h"
 #include "../include/user.h"
 
-int times_reported = 0;
-
-/*
-
-typedef int PAYMENT_METHOD;
-#define PIX 1
-#define TED 2
-#define BILLET 3
-#define DEPOSIT 4
-#define WITHDRAWAL 5
-
-*/
-
 void reportMenu() {
   utilsClearTerminal();
   int action = -1;
   SortMode sort = DATE_ASCENDING_SORT;
   PAYMENT_METHOD method;
 
-  puts("Deseja gerar qual relatório?");
+  puts("Deseja gerar qual relatorio?");
   puts("0. Voltar");
   puts("1. Extrato geral");
   scanf("%d", &action);
@@ -43,10 +30,11 @@ void reportMenu() {
   puts("1. Pix");
   puts("2. TED");
   puts("3. Boleto");
-  puts("4. Depósito");
+  puts("4. Deposito");
   puts("5. Saque");
   scanf("%d", &method);
 
+  utilsClearTerminal();
   printRequest(userGet(), sort, method);
   error(NO_ERROR, MAIN_MENU);
 }
@@ -78,7 +66,7 @@ void printAllUsers() {
     puts("----------------------------------------------------");
   }
 
-  system("pause");
+  utilsPause();
 }
 
 void printAllTransactions() {
@@ -103,7 +91,7 @@ void printAllTransactions() {
     puts("----------------------------------------------------");
   }
 
-  system("pause");
+  utilsPause();
 }
 
 void printDepositsAndWithdrawal() {

@@ -24,11 +24,19 @@ void error(int errorCode, int to) {
       break;
 
     case DIFFERENT_PASSWORDS_ERROR:
-      puts("Senha de confirmação diferente.");
+      puts("Senha de confirmacao diferente.");
       break;
 
     case INSUFICCIENT_MONEY_ERROR:
       puts("Saldo insuficiente.");
+      break;
+
+    case NEGATIVE_NUMBER_ERROR:
+      puts("Digite um valor positivo.");
+      break;
+
+    case ENTER_ANOTHER_ACCOUNT_NUMBER:
+      puts("Digite um numero de outra conta.");
       break;
 
     default:
@@ -37,37 +45,37 @@ void error(int errorCode, int to) {
 
   if (to == HOME) {
     puts("Voce sera redirecionado para a tela de inicial:");
-    system("pause");
+    utilsPause();
     return userLogin();
   }
 
   if (to == SIGN_UP) {
     puts("Voce sera redirecionado para a tela de cadastro:");
-    system("pause");
+    utilsPause();
     return userSignUp(userGet());
   }
 
   if (to == SIGN_IN) {
     puts("Voce sera redirecionado para a tela de login:");
-    system("pause");
+    utilsPause();
     return userSignIn(userGet());
   }
 
   if (to == MAIN_MENU) {
     puts("Voce sera redirecionado para o menu principal:");
-    system("pause");
+    utilsPause();
     return utilsMenu();
   }
 
   if (to == TRANSACTION_MENU) {
     puts("Voce sera redirecionado para o menu transferencias:");
-    system("pause");
+    utilsPause();
     return transactionMenu(&(userGet()->account));
   }
 
   if (to == REPORT_MENU) {
-    puts("Voce sera redirecionado para o menu transferencias:");
-    system("pause");
+    puts("Voce sera redirecionado para o menu relatorios:");
+    utilsPause();
     return reportMenu(&(userGet()->account));
   }
 }

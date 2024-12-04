@@ -15,10 +15,10 @@ void transactionMenu() {
   transaction.origin = *userGet();
 
   accountPrint(&transaction.origin.account);
-  puts("O que você quer fazer?");
+  puts("O que voce quer fazer?");
   puts("0. Voltar");
-  puts("1. Transferência via PIX");
-  puts("2. Transferência via TED");
+  puts("1. Transferencia via PIX");
+  puts("2. Transferencia via TED");
   puts("3. Pagamento de Boleto");
 
   scanf("%d", &transaction.method);
@@ -26,19 +26,20 @@ void transactionMenu() {
   if (transaction.method < 1 || transaction.method > 3)
     return error(INVALID_ACTION_ERROR, TRANSACTION_MENU);
 
-  // cobrança ted
-
   if (transaction.method == 3)
     account_number = BANK_ACCOUNT;
   else {
     utilsClearTerminal();
-    puts("Número da conta: ");
+    puts("Numero da conta: ");
     scanf("%d", &account_number);
+    if (account_number == transaction.origin.account.number)
+      return error(ENTER_ANOTHER_ACCOUNT_NUMBER, TRANSACTION_MENU);
   }
 
   err = databaseGetUserByAccountNumber(account_number, &transaction.destiny);
   if (err != NO_ERROR) return error(err, TRANSACTION_MENU);
 
+  accountPrint(&transaction.origin.account);
   puts("Deseja transferir qual valor?");
   scanf("%lf", &transferValue);
 
@@ -56,7 +57,7 @@ void transactionMenu() {
   databaseInsertTransaction(&transaction);
 
   accountPrint(&transaction.origin.account);
-  puts("Transação finalizada");
+  puts("Transaçao finalizada");
   error(NO_ERROR, MAIN_MENU);
 }
 
@@ -104,24 +105,4 @@ ErrorController transactionWithdrwaw(User* user, Money value) {
   if (err != NO_ERROR) return err;
 
   return NO_ERROR;
-}
-
-char* payment(PAYMENT_METHOD method) {
-  switch (method) {
-    case PIX:
-      return "PIX";
-    case TED:
-      return "TED";
-    case BILL:
-      return "Boleto";
-    default:
-      return "Desconhecido";
-  }
-}
-
-char* transactionText(Transaction* transaction) {
-  char result[STRING_MAX];
-  sprintf(result, "%s : %s -> $%d", dateToText(transaction->date),
-          payment(transaction->method), transaction->value);
-  return result;
 }
