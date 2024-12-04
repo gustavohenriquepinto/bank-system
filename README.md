@@ -1,5 +1,8 @@
 # PROJETO FINAL
 
+![image](https://github.com/user-attachments/assets/e087660e-2fd2-4521-a215-ce50db94c61f)
+
+
 ## Implementação
 - Linguagem C
 - Interface Gráfica Multiplataforma <gtk/gtk.h> (não essencial) (v3.24.43)
@@ -8,12 +11,12 @@
 - Inteiro para números
 - Uso no terminal
 
-- Tempo do programa: 1dia, 1min
+- Tempo do programa: 1dia = 1min
 
-nomeDaFUNÇÃO (camel case) //functions
-NOME_DA_CONSTANTE (upper snake case) //consts
-nome_da_variavel (snake case) //vars
-NomeDaEstrutura (pascal case) //structs
+nomeDaFUNÇÃO (camel case) //functions<br />
+NOME_DA_CONSTANTE (upper snake case) //consts<br />
+nome_da_variavel (snake case) //vars<br />
+NomeDaEstrutura (pascal case) //structs<br />
 
 ## Objetivos
 - Pilhas, filas e/ou listas ligadas. (Transaction)
