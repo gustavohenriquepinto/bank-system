@@ -5,13 +5,10 @@
 
 ## Implementação
 - Linguagem C
-- Interface Gráfica Multiplataforma <gtk/gtk.h> (não essencial) (v3.24.43)
-- Criptografia de Dados <openssl/crypto.h>
-
-- Inteiro para números
+- Dinheiro em números inteiros
 - Uso no terminal
-
 - Tempo do programa: 1dia = 1min
+- Tratamento de erros
 
 nomeDaFUNÇÃO (camel case) //functions<br />
 NOME_DA_CONSTANTE (upper snake case) //consts<br />
