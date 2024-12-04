@@ -42,7 +42,8 @@ void utilsPause() {
   char action;
   fflush(stdin);
   puts("Pressione qualquer tecla para continuar:");
-  scanf("%c", &action);
+  // scanf("%c", &action);
+  sleep();
   fflush(stdin);
 }
 
