@@ -24,11 +24,19 @@ void error(int errorCode, int to) {
       break;
 
     case DIFFERENT_PASSWORDS_ERROR:
-      puts("Senha de confirmação diferente.");
+      puts("Senha de confirmacao diferente.");
       break;
 
     case INSUFICCIENT_MONEY_ERROR:
       puts("Saldo insuficiente.");
+      break;
+
+    case NEGATIVE_NUMBER_ERROR:
+      puts("Digite um valor positivo.");
+      break;
+
+    case ENTER_ANOTHER_ACCOUNT_NUMBER:
+      puts("Digite um numero de outra conta.");
       break;
 
     default:
@@ -66,7 +74,7 @@ void error(int errorCode, int to) {
   }
 
   if (to == REPORT_MENU) {
-    puts("Voce sera redirecionado para o menu transferencias:");
+    puts("Voce sera redirecionado para o menu relatórios:");
     system("pause");
     return reportMenu(&(userGet()->account));
   }

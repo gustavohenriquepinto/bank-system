@@ -10,13 +10,13 @@ void utilsMenu() {
 
   while (action < 0 || action > 5) {
     utilsClearTerminal();
-    puts("O que você deseja?");
+    puts("O que voce deseja?");
     puts("0. Sair");
     puts("1. Consultar saldo");
-    puts("2. Realizar um depósito");
+    puts("2. Realizar um deposito");
     puts("3. Realizar um saque");
-    puts("4. Realizar uma transferência");
-    puts("5. Gerar um relatório");
+    puts("4. Realizar uma transferencia");
+    puts("5. Gerar um relatorio");
 
     scanf("%d", &action);
     printf("%c\n", action == 0);
