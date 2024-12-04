@@ -34,6 +34,7 @@ void reportMenu() {
   puts("5. Saque");
   scanf("%d", &method);
 
+  utilsClearTerminal();
   printRequest(userGet(), sort, method);
   error(NO_ERROR, MAIN_MENU);
 }

@@ -63,7 +63,7 @@ void accountWithdrawalMenu() {
 }
 
 bool accountDoesntHasSufficientMoney(Account* account, Money value) {
-  return account->balance <= value;
+  return account->balance < value;
 }
 
 ErrorController accountIncreaseBalance(Account* account, Money value) {

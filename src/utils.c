@@ -34,13 +34,13 @@ void utilsMenu() {
 }
 
 void utilsClearTerminal() {
-  // system("cls");
+  system("cls");
   system("clear");
 }
 
 void utilsPause() {
   fflush(stdin);
-  puts("Pressione qualquer tecla para continuar:");
+  puts("Pressione qualquer tecla para continuar...");
   getchar();
   fflush(stdin);
 }
