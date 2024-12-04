@@ -1,19 +1,21 @@
 # PROJETO FINAL
 
+![image](https://github.com/user-attachments/assets/e087660e-2fd2-4521-a215-ce50db94c61f)
+
+![Recording 2024-12-04 at 06 51 06](https://github.com/user-attachments/assets/004f83dd-dc0d-4ecb-bee8-521d13ad160a)
+
+
 ## Implementação
 - Linguagem C
-- Interface Gráfica Multiplataforma <gtk/gtk.h> (não essencial) (v3.24.43)
-- Criptografia de Dados <openssl/crypto.h>
-
-- Inteiro para números
+- Dinheiro em números inteiros
 - Uso no terminal
+- Tempo do programa: 1dia = 1min
+- Tratamento de erros
 
-- Tempo do programa: 1dia, 1min
-
-nomeDaFUNÇÃO (camel case) //functions
-NOME_DA_CONSTANTE (upper snake case) //consts
-nome_da_variavel (snake case) //vars
-NomeDaEstrutura (pascal case) //structs
+nomeDaFUNÇÃO (camel case) //functions<br />
+NOME_DA_CONSTANTE (upper snake case) //consts<br />
+nome_da_variavel (snake case) //vars<br />
+NomeDaEstrutura (pascal case) //structs<br />
 
 ## Objetivos
 - Pilhas, filas e/ou listas ligadas. (Transaction)
@@ -34,9 +36,9 @@ NomeDaEstrutura (pascal case) //structs
 - Histórico de transferências (filtros)
 - Emissão de extratos, com a possibilidade de utilizar filtros ou ordenação
 - Filtros
-- - Data/Período
-- - Valor
-- - Tipo
+  - Data
+  - Valor
+  - Tipo
 
 ### Segurança e Privacidade
 - Autenticação de Usuários
