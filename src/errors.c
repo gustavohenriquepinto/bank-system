@@ -74,7 +74,7 @@ void error(int errorCode, int to) {
   }
 
   if (to == REPORT_MENU) {
-    puts("Voce sera redirecionado para o menu relatórios:");
+    puts("Voce sera redirecionado para o menu relatorios:");
     utilsPause();
     return reportMenu(&(userGet()->account));
   }
