@@ -63,7 +63,10 @@ void userLogin() {
     puts("0. Encerrar programa");
     puts("1. Entrar na sua conta");
     puts("2. Criar uma conta");
+
+    fflush(stdin);
     scanf("%d", &action);
+    fflush(stdin);
 
     if (action == 0) exit(EXIT_SUCCESS);
     if (action == 1) userSignIn();

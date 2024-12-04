@@ -8,36 +8,43 @@ void utilsMenu() {
   User* user = userGet();
   int action = -1;
 
-  while (action < 0 || action > 5) {
-    utilsClearTerminal();
-    puts("O que voce deseja?");
-    puts("0. Sair");
-    puts("1. Consultar saldo");
-    puts("2. Realizar um deposito");
-    puts("3. Realizar um saque");
-    puts("4. Realizar uma transferencia");
-    puts("5. Gerar um relatorio");
+  utilsClearTerminal();
+  puts("O que voce deseja?");
+  puts("0. Sair");
+  puts("1. Consultar saldo");
+  puts("2. Realizar um deposito");
+  puts("3. Realizar um saque");
+  puts("4. Realizar uma transferencia");
+  puts("5. Gerar um relatorio");
 
-    scanf("%d", &action);
-    printf("%c\n", action == 0);
+  fflush(stdin);
+  scanf("%d", &action);
+  fflush(stdin);
 
-    if (action == 0) break;
-    if (action == 1) accountPrint(&(user->account));
-    if (action == 2) accountDepositMenu(&(user->account));
-    if (action == 3) accountWithdrawalMenu(&(user->account));
-    if (action == 4) transactionMenu(&(user->account));
-    if (action == 5) reportMenu(&(user->account));
-  }
-
+  if (action < 0 || action > 5) return utilsMenu();
   if (action == 0) return userLogin();
+  if (action == 1) accountPrint(&(user->account));
+  if (action == 2) accountDepositMenu(&(user->account));
+  if (action == 3) accountWithdrawalMenu(&(user->account));
+  if (action == 4) transactionMenu(&(user->account));
+  if (action == 5) reportMenu(&(user->account));
+
   puts("Aperte enter para retornar ao menu");
-  system("pause");
+  utilsPause();
   utilsMenu();
 }
 
 void utilsClearTerminal() {
-  system("clear");
   system("cls");
+  system("clear");
+}
+
+void utilsPause() {
+  char action;
+  fflush(stdin);
+  puts("Pressione qualquer tecla para continuar");
+  scanf("%c", &action);
+  fflush(stdin);
 }
 
 bool utilsCompareIfIsSameString(char* str1, char* str2) {

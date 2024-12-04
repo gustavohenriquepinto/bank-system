@@ -65,7 +65,7 @@ void printAllUsers() {
     puts("----------------------------------------------------");
   }
 
-  system("pause");
+  utilsPause();
 }
 
 void printAllTransactions() {
@@ -90,7 +90,7 @@ void printAllTransactions() {
     puts("----------------------------------------------------");
   }
 
-  system("pause");
+  utilsPause();
 }
 
 void printDepositsAndWithdrawal() {
